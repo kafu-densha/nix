@@ -105,6 +105,7 @@ in
     fastfetch
     git
     dig
+    bat
 
     # Services
     tailscale
