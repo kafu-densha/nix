@@ -19,7 +19,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.elenah = ./modules/home.nix;
+          home-manager.users.elenah = ./modules/home/home.nix;
         }
       ];
     };

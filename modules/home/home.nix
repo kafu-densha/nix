@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [];
@@ -19,6 +19,16 @@
       user.signingkey = "/home/elenah/.ssh/id_ed25519.pub";
       init.defaultbranch = "main";
     };
+  };
+
+  programs.bash.enable = true;
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = true;
+    settings = lib.mkMerge [
+      (lib.importTOML ./starship-nerd-font-symbols.toml)
+      (lib.importTOML ./starship.toml)
+    ];
   };
 
   # The state version is required and should stay at the version you
