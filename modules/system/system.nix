@@ -30,6 +30,10 @@
     ];
   };
 
+  swapDevices = [{
+    device = "/swapfile";
+    size = 4 * 1024; # 4GB
+  }];
 
 
   # This option defines the first version of NixOS you have installed on this particular machine,
