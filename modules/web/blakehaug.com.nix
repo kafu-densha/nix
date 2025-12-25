@@ -14,11 +14,6 @@
       forceSSL = true;
       root = "/var/www/elenahaug.com";
     };
-    "vm.elenahaug.com" = {
-      useACMEHost = "elenahaug.com";
-      forceSSL = true;
-      root = "/var/www/elenahaug.com";
-    };
     "elena.ocf.berkeley.edu" = {
       enableACME = true;
       forceSSL = true;
@@ -35,7 +30,6 @@
 
     extraDomainNames = [
       "www.elenahaug.com"
-      "vm.elenahaug.com"
     ];
   };
 
