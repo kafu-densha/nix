@@ -4,14 +4,10 @@
 
 { config, lib, pkgs, ... }:
 
-let
-  home-manager = builtins.fetchTarball { url = "https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz"; sha256 = "1rzgy9qmrvh9l3jrcjv14kva8sj3imzrpm2vmwcfzp40bk9wdfb5"; };
-in
 {
   imports =
     [
       ./hardware-configuration.nix
-      (import "${home-manager}/nixos")
     ];
 
   # Enable Flakes
@@ -69,30 +65,6 @@ in
     packages = with pkgs; [
     ];
   };
-
-  home-manager.users.elenah = { pkgs, ... }: {
-      home.packages = [ ];
-
-      # Git config
-      programs.git = {
-        enable = true;
-        settings = {
-         	user = {
-         	  name = "Blake Haug";
-         	  email = "elena@elenahaug.com";
-         	};
-          commit.gpgsign = true;
-          gpg.format = "ssh";
-          gpg.ssh.allowedsignersfile = "/home/elenah/.ssh/allowed_signers";
-          user.signingkey = "/home/elenah/.ssh/id_ed25519.pub";
-          init.defaultbranch = "main";
-        };
-      };
-
-      # The state version is required and should stay at the version you
-      # originally installed.
-      home.stateVersion = "25.11";
-    };
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
