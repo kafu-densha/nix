@@ -13,13 +13,13 @@
   outputs = { self, nixpkgs, agenix, home-manager, ... }@inputs: {
     nixosConfigurations.elena = nixpkgs.lib.nixosSystem {
       modules = [
-        ./configuration.nix
+        ./modules/modules.nix
         agenix.nixosModules.default
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.elenah = ./home.nix;
+          home-manager.users.elenah = ./modules/home.nix;
         }
       ];
     };
