@@ -13,7 +13,7 @@ in
       ./hardware-configuration.nix
       (import "${home-manager}/nixos")
     ];
-   
+
   # Enable Flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -121,6 +121,8 @@ in
   #   enableSSHSupport = true;
   # };
 
+  programs.ssh.startAgent = true;
+
   # Open minecraft ports
   # networking.firewall.allowedTCPPorts = [ 25565 ];
   # networking.firewall.allowedUDPPorts = [ 25565 ];
@@ -167,11 +169,11 @@ in
         forceSSL = true;
         root = "/var/www/elenahaug.com";
       };
-      # "vm.elenahaug.com" = {
-      #   enableACME = true;
-      #   forceSSL = true;
-      #   root = "/var/www/elenahaug.com";
-      # };
+      "vm.elenahaug.com" = {
+        useACMEHost = "elenahaug.com";
+        forceSSL = true;
+        root = "/var/www/elenahaug.com";
+      };
       "elena.ocf.berkeley.edu" = {
         enableACME = true;
         forceSSL = true;
@@ -180,12 +182,20 @@ in
     };
   };
   networking.firewall.allowedTCPPorts = [ 80 443 ];
+  age.secrets.cloudflare-api-key.file = ./secrets/cloudflare-api-key.age;
   security.acme = {
     acceptTerms = true;
     defaults.email = "elena@elenahaug.com";
-    certs."elenahaug.com".extraDomainNames = [
-      "www.elenahaug.com"
-    ];
+    certs."elenahaug.com" = {
+      dnsProvider = "cloudflare";
+      environmentFile = config.age.secrets.cloudflare-api-key.path;
+      webroot = null;
+
+      extraDomainNames = [
+        "www.elenahaug.com"
+        "vm.elenahaug.com"
+      ];
+    };
   };
   systemd.tmpfiles.rules = [
     "d /var/www/elenahaug.com 0755 deploy nginx -"
