@@ -8,10 +8,12 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    neovim-flake.url = "github:ArMonarch/Neovim-flake";
   };
 
-  outputs = { self, nixpkgs, agenix, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, agenix, home-manager, neovim-flake, ... }@inputs: {
     nixosConfigurations.elena = nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs; };
       modules = [
         ./modules/modules.nix
         agenix.nixosModules.default
