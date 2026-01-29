@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports = [];
@@ -13,6 +13,8 @@
     git
     dig
     bat
+
+    inputs.neovim-flake.packages.${pkgs.system}.default
   ];
 
   programs.nh = {
