@@ -24,6 +24,8 @@
     flake = "/etc/nixos";
   };
 
+  programs.tmux.enable = true;
+
   environment.shellAliases = {
     update = "nh os switch --ask";
   };
