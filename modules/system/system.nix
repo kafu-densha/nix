@@ -11,6 +11,9 @@
 
   # Enable Flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  
+  # Enable QEMU guest agent for Proxmox
+  services.qemuGuest.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

@@ -22,7 +22,7 @@
   networking.search = [ "ocf.berkeley.edu" ];
 
   # PLACED BY JAYSA FOR OCF DNS
-  networking.interfaces.enp1s0.ipv4.addresses = [
+  networking.interfaces.ens18.ipv4.addresses = [
     {
       address = "169.229.226.254";
       prefixLength = 24;
