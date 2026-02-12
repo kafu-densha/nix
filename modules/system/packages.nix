@@ -13,10 +13,11 @@
     git
     dig
     bat
-    comma
 
     inputs.neovim-flake.packages.${pkgs.system}.default
   ];
+
+  programs.nix-index-database.comma.enable = true;
 
   programs.nh = {
     enable = true;
