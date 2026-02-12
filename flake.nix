@@ -9,14 +9,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neovim-flake.url = "github:ArMonarch/Neovim-flake";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, agenix, home-manager, neovim-flake, ... }@inputs: {
+  outputs = { self, nixpkgs, agenix, home-manager, neovim-flake, nix-index-database, ... }@inputs: {
     nixosConfigurations.elena = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
         ./modules/modules.nix
         agenix.nixosModules.default
+        nix-index-database.nixosModules.default
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
