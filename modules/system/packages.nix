@@ -13,6 +13,7 @@
     git
     dig
     bat
+    comma
 
     inputs.neovim-flake.packages.${pkgs.system}.default
   ];
