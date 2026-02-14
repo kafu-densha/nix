@@ -17,6 +17,8 @@
     inputs.neovim-flake.packages.${pkgs.system}.default
   ];
 
+  programs.mosh.enable = true;
+
   programs.nix-index-database.comma.enable = true;
 
   programs.nh = {
