@@ -3,7 +3,15 @@
 {
   imports = [];
 
-  home.packages = [ ];
+  home.packages = with pkgs; [
+    lsd
+    ripgrep
+  ];
+
+  home.shellAliases = {
+    ls = "lsd";
+    la = "ls -la";
+  };
 
   # Git config
   programs.git = {
