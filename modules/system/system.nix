@@ -19,6 +19,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # automatically grow partition to match proxmox disk
+  boot.growPartition = lib.mkDefault true;
+
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
