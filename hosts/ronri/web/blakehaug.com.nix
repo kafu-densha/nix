@@ -19,10 +19,15 @@
       forceSSL = true;
       root = "/var/www/elenahaug.com";
     };
+    "ronri.ocf.berkeley.edu" = {
+      enableACME = true;
+      forceSSL = true;
+      root = "/var/www/elenahaug.com";
+    };
   };
 
   # Setup tls challenge
-  age.secrets.cloudflare-api-key.file = ../../secrets/cloudflare-api-key.age;
+  age.secrets.cloudflare-api-key.file = ../../../secrets/cloudflare-api-key.age;
   security.acme.certs."elenahaug.com" = {
     dnsProvider = "cloudflare";
     environmentFile = config.age.secrets.cloudflare-api-key.path;
