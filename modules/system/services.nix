@@ -22,10 +22,17 @@
   environment.systemPackages = with pkgs; [ tailscale ];
 
   # Docker config
-  virtualisation.docker.enable = true;
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
+  virtualisation = {
+    containers = {
+      enable = true;
+      registries.search = [ "docker.io" ];
+    };
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
   };
+  users.users.elenah.extraGroups = ["podman"];
 
 }
