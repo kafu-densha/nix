@@ -16,7 +16,7 @@
   # Tailscale config
   services.tailscale = {
     enable = true;
-    useRoutingFeatures = "server";
+    useRoutingFeatures = "both";
   };
   # add tailscale CLI
   environment.systemPackages = with pkgs; [ tailscale ];
