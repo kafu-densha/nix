@@ -3,10 +3,7 @@
 {
   imports = [];
 
-  home.packages = with pkgs; [
-    lsd
-    ripgrep
-  ];
+  home.packages = with pkgs; [];
 
   home.shellAliases = {
     ls = "lsd";
