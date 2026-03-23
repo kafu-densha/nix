@@ -2,9 +2,14 @@
   description = "NixOS flake for elenah nix machines";
 
   inputs = {
+    flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     agenix.url = "github:ryantm/agenix";
+    agenix-rekey = {
+      url = "github:oddlama/agenix-rekey";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,13 +30,22 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, agenix, home-manager, home-manager-unstable, neovim-flake, nix-index-database, nix-darwin, ... }@inputs: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, agenix, agenix-rekey, home-manager, home-manager-unstable, neovim-flake, nix-index-database, nix-darwin, flake-utils, ... }@inputs:
+  let
+    pubkeys = [
+      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIK6PlfQq5LYIOHTnPwQvJeiGo3MYDxBRb+KdTqrffxFnAAAABHNzaDo=" # main yubikey
+      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIPs3+fHihwZSBQVtoXffCtSSmBBDb/0NY+BPDIo+FKh9AAAABHNzaDo=" # backup yubikey
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ3SnQlFllOIBsQmgGB8owAyKviKNoRvleS/eIbK4/8B" # hikari
+    ];
+  in
+  {
     nixosConfigurations = {
       ronri = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs pubkeys; };
         modules = [
           ./hosts/ronri/default.nix
           agenix.nixosModules.default
+          agenix-rekey.nixosModules.default
           nix-index-database.nixosModules.default
           home-manager.nixosModules.home-manager
           {
@@ -42,10 +56,11 @@
         ];
       };
       ito = nixpkgs-unstable.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs pubkeys; };
         modules = [
           ./hosts/ito/default.nix
           agenix.nixosModules.default
+          agenix-rekey.nixosModules.default
           nix-index-database.nixosModules.default
           home-manager-unstable.nixosModules.home-manager
           {
@@ -60,7 +75,8 @@
       specialArgs = { inherit inputs self; };
       modules = [
         ./hosts/hikari/default.nix
-        agenix.darwinModules.default
+        # agenix.darwinModules.default
+        # agenix-rekey.darwinModules.default
         nix-index-database.darwinModules.default
         home-manager-unstable.darwinModules.home-manager
         {
@@ -71,5 +87,24 @@
         }
       ];
     };
-  };
+    
+    agenix-rekey = agenix-rekey.configure {
+      userFlake = self;
+      nixosConfigurations = self.nixosConfigurations;
+      # darwinConfigurations = self.darwinConfigurations or { };
+    };
+  }
+  
+  // flake-utils.lib.eachDefaultSystem (system: rec {
+    pkgs = import nixpkgs {
+      inherit system;
+      overlays = [ agenix-rekey.overlays.default ];
+    };
+    devShells.default = pkgs.mkShell {
+      packages = [
+        pkgs.agenix-rekey
+        pkgs.age-plugin-fido2-hmac
+      ];
+    };
+  });
 }
