@@ -18,9 +18,14 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, agenix, home-manager, home-manager-unstable, neovim-flake, nix-index-database, ... }@inputs: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, agenix, home-manager, home-manager-unstable, neovim-flake, nix-index-database, nix-darwin, ... }@inputs: {
     nixosConfigurations = {
       ronri = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
@@ -50,6 +55,21 @@
           }
         ];
       };
+    };
+    darwinConfigurations.hikari = nix-darwin.lib.darwinSystem {
+      specialArgs = { inherit inputs self; };
+      modules = [
+        ./hosts/hikari/default.nix
+        agenix.darwinModules.default
+        nix-index-database.darwinModules.default
+        home-manager-unstable.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.elenah = ./hosts/hikari/home.nix;
+          home-manager.backupFileExtension = "hm-backup";
+        }
+      ];
     };
   };
 }
