@@ -19,6 +19,8 @@
   programs.mosh.enable = true;
 
   programs.nix-index-database.comma.enable = true;
+  
+  programs.direnv.enable = true;
 
   programs.nh = {
     enable = true;
