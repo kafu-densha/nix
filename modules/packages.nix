@@ -36,5 +36,5 @@
     update = "nh os switch --ask";
   };
 
-  environment.variables.EDITOR = "nvim";
+  environment.variables.VISUAL = "nvim";
 }
