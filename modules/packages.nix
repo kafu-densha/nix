@@ -12,9 +12,6 @@
     fastfetch
     git
     dig
-    bat
-    lsd
-    ripgrep
 
     inputs.neovim-flake.packages.${pkgs.system}.default
   ];

@@ -1,12 +1,17 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   imports = [];
 
-  home.packages = with pkgs; [];
+  home.packages = with pkgs; [
+    bat
+    lsd
+    ripgrep
+  ];
 
   home.shellAliases = {
     ls = "lsd";
+    ll = "ls -l";
     la = "ls -la";
   };
 
@@ -20,8 +25,8 @@
      	};
       commit.gpgsign = true;
       gpg.format = "ssh";
-      gpg.ssh.allowedsignersfile = "/home/elenah/.ssh/allowed_signers";
-      user.signingkey = "/home/elenah/.ssh/id_ed25519.pub";
+      gpg.ssh.allowedsignersfile = "${config.home.homeDirectory}/.ssh/allowed_signers";
+      user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
       init.defaultbranch = "main";
     };
   };
@@ -29,7 +34,7 @@
   programs.zsh.enable = true;
   programs.starship = {
     enable = true;
-    enableBashIntegration = true;
+    enableZshIntegration = true;
     settings = lib.mkMerge [
       (lib.importTOML ./starship-nerd-font-symbols.toml)
       (lib.importTOML ./starship.toml)
