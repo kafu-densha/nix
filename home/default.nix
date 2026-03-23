@@ -26,7 +26,7 @@
     };
   };
 
-  programs.bash.enable = true;
+  programs.zsh.enable = true;
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
