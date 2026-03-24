@@ -21,6 +21,9 @@
     nixd
     devenv
     
+    # Graphical
+    aseprite
+    
     # Misc
     mosh
   ];
