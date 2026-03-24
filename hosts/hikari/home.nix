@@ -19,5 +19,6 @@
     newrepo = "gh repo create --private --source=. --remote=origin";
     bu = "brew update && brew upgrade";
     qr = "kiro-cli restart";
+    switch = "cd ~/.nixos && git pull && nh darwin switch && cd -";
   };
 }
