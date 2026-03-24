@@ -32,7 +32,7 @@
   programs.tmux.enable = true;
 
   environment.shellAliases = {
-    update = "nh os switch --ask";
+    switch = "cd ~/.nixos && git pull && nh os switch && cd -";
   };
 
   environment.variables.VISUAL = "nvim";
