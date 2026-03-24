@@ -23,14 +23,17 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, agenix, agenix-rekey, home-manager, home-manager-unstable, neovim-flake, nix-index-database, nix-darwin, flake-utils, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, agenix, agenix-rekey, home-manager, home-manager-unstable, neovim-flake, nix-index-database, nix-darwin, flake-utils, colmena, ... }@inputs:
   let
     pubkeys = [
       "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIK6PlfQq5LYIOHTnPwQvJeiGo3MYDxBRb+KdTqrffxFnAAAABHNzaDo=" # main yubikey
@@ -88,6 +91,32 @@
       ];
     };
     
+    colmenaHive = colmena.lib.makeHive {
+      meta = {
+        nixpkgs = import nixpkgs { system = "x86_64-linux"; };
+        nodeNixpkgs = builtins.mapAttrs (name: value: value.pkgs) self.nixosConfigurations;
+        nodeSpecialArgs = builtins.mapAttrs (name: value: value._module.specialArgs) self.nixosConfigurations;
+      };
+
+      ronri = {
+        imports = self.nixosConfigurations.ronri._module.args.modules;
+        deployment = {
+          targetHost = "ronri";
+          targetUser = "elenah";
+          buildOnTarget = true;
+        };
+      };
+
+      # ito = {
+      #   imports = self.nixosConfigurations.ito._module.args.modules;
+      #   deployment = {
+      #     targetHost = "ito";
+      #     targetUser = "elenah";
+      #     buildOnTarget = true;
+      #   };
+      # };
+    };
+    
     agenix-rekey = agenix-rekey.configure {
       userFlake = self;
       nixosConfigurations = self.nixosConfigurations;
@@ -104,6 +133,7 @@
       packages = [
         pkgs.agenix-rekey
         pkgs.age-plugin-fido2-hmac
+        colmena.packages.${system}.colmena
       ];
     };
   });
