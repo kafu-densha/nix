@@ -4,7 +4,7 @@
   imports = [
     ../../home/default.nix
   ];
-  
+
   home.sessionPath = [
     "/opt/homebrew/bin"
     "/opt/homebrew/sbin"
@@ -12,7 +12,7 @@
     "/Users/elenah/scripts"
     "/Applications/Docker.app/Contents/Resources/bin/"
   ];
-  
+
   home.shellAliases = {
     tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
     python = "python3";

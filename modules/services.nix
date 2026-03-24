@@ -1,7 +1,12 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [];
+  imports = [ ];
 
   programs.ssh.startAgent = true;
 
@@ -33,6 +38,6 @@
       defaultNetwork.settings.dns_enabled = true;
     };
   };
-  users.users.elenah.extraGroups = ["podman"];
+  users.users.elenah.extraGroups = [ "podman" ];
 
 }

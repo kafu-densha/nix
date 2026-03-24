@@ -1,7 +1,12 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
-  imports = [];
+  imports = [ ];
 
   home.packages = with pkgs; [
     bat
@@ -42,10 +47,10 @@
   programs.git = {
     enable = true;
     settings = {
-     	user = {
-     	  name = "Blake Haug";
-     	  email = "elena@elenahaug.com";
-     	};
+      user = {
+        name = "Blake Haug";
+        email = "elena@elenahaug.com";
+      };
       commit.gpgsign = true;
       gpg.format = "ssh";
       gpg.ssh.allowedsignersfile = "${config.home.homeDirectory}/.ssh/allowed_signers";

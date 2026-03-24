@@ -1,11 +1,10 @@
 { ... }:
 
 {
-  imports =
-    [
-      ./packages.nix
-      ./services.nix
-      ./system.nix
-      ./secrets.nix
-    ];
+  imports = [
+    ./packages.nix
+    ./services.nix
+    ./system.nix
+    ./secrets.nix
+  ];
 }

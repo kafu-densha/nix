@@ -1,7 +1,12 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [];
+  imports = [ ];
 
   networking.hostName = "ronri"; # Define your hostname.
 
