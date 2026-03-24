@@ -6,7 +6,30 @@
   home.packages = with pkgs; [
     bat
     lsd
-    ripgrep
+    ripgrep-all
+    aria2
+    btop
+    croc
+    diff-so-fancy
+    dos2unix
+    exiftool
+    fastfetch
+    ffmpeg
+    gh
+    glow
+    jq
+    iperf
+    lazygit
+    pre-commit
+    qrencode
+    rclone
+    restic
+    rhash
+    speedtest-cli
+    pay-respects
+    wakeonlan
+    yubikey-manager
+    zoxide
   ];
 
   home.shellAliases = {
@@ -28,6 +51,8 @@
       gpg.ssh.allowedsignersfile = "${config.home.homeDirectory}/.ssh/allowed_signers";
       user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
       init.defaultbranch = "main";
+      core.pager = "diff-so-fancy | less --tabs=4 -RF";
+      interactive.diffFilter = "diff-so-fancy --patch";
     };
   };
 
