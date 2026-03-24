@@ -21,11 +21,16 @@
   networking.domain = "ocf.berkeley.edu";
   networking.search = [ "ocf.berkeley.edu" ];
 
-  # PLACED BY JAYSA FOR OCF DNS
   networking.interfaces.ens18.ipv4.addresses = [
     {
       address = "169.229.226.254";
       prefixLength = 24;
+    }
+  ];
+  networking.interfaces.ens18.ipv6.addresses = [
+    {
+      address = "2607:f140:8801::1:254";
+      prefixLength = 64;
     }
   ];
   networking.defaultGateway = "169.229.226.1";
