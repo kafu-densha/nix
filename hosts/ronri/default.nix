@@ -1,13 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      ./hardware.nix
-      ./networking.nix
-      ./web/default.nix
-      ../../modules/default.nix
-    ];
+  imports = [
+    ./hardware.nix
+    ./networking.nix
+    ./web/default.nix
+    ../../modules/default.nix
+  ];
 
   # Enable QEMU guest agent for Proxmox
   services.qemuGuest.enable = true;
@@ -19,11 +23,12 @@
   # automatically grow partition to match proxmox disk
   boot.growPartition = lib.mkDefault true;
 
-  swapDevices = [{
-    device = "/swapfile";
-    size = 4 * 1024; # 4GB
-  }];
-
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 4 * 1024; # 4GB
+    }
+  ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

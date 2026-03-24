@@ -1,7 +1,13 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports = [];
+  imports = [ ];
 
   environment.systemPackages = with pkgs; [
     # Tools
@@ -19,7 +25,7 @@
   programs.mosh.enable = true;
 
   programs.nix-index-database.comma.enable = true;
-  
+
   programs.direnv.enable = true;
 
   programs.nh = {

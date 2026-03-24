@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   hostkeys = {
@@ -7,7 +13,7 @@ let
   };
 in
 {
-  imports = [];
+  imports = [ ];
 
   age.rekey = {
     hostPubkey = hostkeys.${config.networking.hostName};

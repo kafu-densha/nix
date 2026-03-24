@@ -1,14 +1,24 @@
-{ config, lib, pkgs, inputs, pubkeys, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  pubkeys,
+  ...
+}:
 
 {
-  imports = [];
+  imports = [ ];
 
   # Enable Flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
-  
+
   # Setup shell
   environment.shells = with pkgs; [ zsh ];
   programs.zsh.enable = true;
@@ -19,7 +29,7 @@
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = pubkeys;
   };
-  
+
   # fix colmena apply needing interactive sudo password entry
   security.sudo.extraRules = [
     {

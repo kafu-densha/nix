@@ -1,36 +1,40 @@
-{ self, config, lib, pkgs, ... }:
+{
+  self,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [];
+  imports = [ ];
 
   users.users.elenah = {
     name = "elenah";
     home = "/Users/elenah";
   };
-  
+
   programs.zsh.enable = true;
-  
+
   programs.direnv.enable = true;
 
-
-  
   environment.systemPackages = with pkgs; [
     # Nix related
     nh
     nil
     nixd
     devenv
-    
+
     # Graphical
     aseprite
-    
+
     # Misc
     mosh
   ];
-  
+
   # setup nix helper
   environment.variables.NH_FLAKE = "/Users/elenah/.nixos";
-  
+
   programs.nix-index-database.comma.enable = true;
 
   # Necessary for using flakes on this system.
@@ -42,7 +46,7 @@
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 6;
-  
+
   # Enable unfree packages
   nixpkgs.config.allowUnfree = true;
 
