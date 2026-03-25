@@ -35,6 +35,8 @@
   # setup nix helper
   environment.variables.NH_FLAKE = "/Users/elenah/.nixos";
 
+  environment.variables.VISUAL = "nvim";
+
   programs.nix-index-database.comma.enable = true;
 
   # Necessary for using flakes on this system.
