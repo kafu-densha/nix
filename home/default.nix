@@ -34,7 +34,6 @@
     pay-respects
     wakeonlan
     yubikey-manager
-    zoxide
   ];
 
   home.shellAliases = {
@@ -69,6 +68,11 @@
       (lib.importTOML ./starship-nerd-font-symbols.toml)
       (lib.importTOML ./starship.toml)
     ];
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   # The state version is required and should stay at the version you
