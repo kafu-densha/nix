@@ -31,7 +31,14 @@
     kdePackages.filelight
     kdePackages.partitionmanager
     gparted
+
+    # Gaming
+    lutris
+    protonplus
   ];
+
+  # Gaming
+  programs.steam.enable = true;
 
   # Fonts
   fonts = {
