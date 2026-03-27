@@ -10,6 +10,7 @@
     ./hardware.nix
     ./networking.nix
     ./graphical.nix
+    ./disks.nix
     ../../modules/default.nix
   ];
 
