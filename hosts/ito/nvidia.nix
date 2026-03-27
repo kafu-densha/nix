@@ -13,8 +13,8 @@
 
     # Nvidia power management. Experimental, but usually needed
     # to prevent graphical corruption after waking from sleep.
-    powerManagement.enable = true;
-    powerManagement.finegrained = false;
+    # powerManagement.enable = true;
+    # powerManagement.finegrained = false;
 
     open = true;
     nvidiaSettings = true;
