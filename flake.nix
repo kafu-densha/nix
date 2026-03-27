@@ -45,6 +45,7 @@
       url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   outputs =
@@ -65,6 +66,7 @@
       colmena,
       disko,
       lanzaboote,
+      nix-flatpak,
       ...
     }@inputs:
     let
@@ -101,6 +103,7 @@
             nix-index-database-unstable.nixosModules.default
             disko.nixosModules.disko
             lanzaboote.nixosModules.lanzaboote
+            nix-flatpak.nixosModules.nix-flatpak
             home-manager-unstable.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
