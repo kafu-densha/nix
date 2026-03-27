@@ -57,7 +57,34 @@
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [
+      # Defaults
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-color-emoji
+      liberation_ttf
+      fira-code
+      fira-code-symbols
+
+      # Japanese
+      ipaexfont
+
+      # Terminal font
       meslo-lgs-nf
     ];
+
+    fontconfig.defaultFonts = {
+      monospace = [
+        "Fira Code"
+        "IPAexGothic"
+      ];
+      sansSerif = [
+        "Noto Sans"
+        "IPAexGothic"
+      ];
+      serif = [
+        "Noto Serif"
+        "IPAexMincho"
+      ];
+    };
   };
 }
