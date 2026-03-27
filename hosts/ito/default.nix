@@ -37,6 +37,12 @@
   # yubikey support
   services.pcscd.enable = true;
 
+  # openrgb setup
+  services.hardware.openrgb.enable = true;
+  environment.systemPackages = with pkgs; [
+    openrgb
+  ];
+
   # allow unfree packages for nvidia
   nixpkgs.config.allowUnfree = true;
 
