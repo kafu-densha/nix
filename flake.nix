@@ -148,14 +148,14 @@
           };
         };
 
-        # ito = {
-        #   imports = self.nixosConfigurations.ito._module.args.modules;
-        #   deployment = {
-        #     targetHost = "ito";
-        #     targetUser = "elenah";
-        #     buildOnTarget = true;
-        #   };
-        # };
+        ito = {
+          imports = self.nixosConfigurations.ito._module.args.modules;
+          deployment = {
+            targetHost = "ito";
+            targetUser = "elenah";
+            buildOnTarget = true;
+          };
+        };
       };
 
       agenix-rekey = agenix-rekey.configure {
