@@ -23,8 +23,15 @@
     enable = true;
     useRoutingFeatures = "both";
   };
-  # add tailscale CLI
-  environment.systemPackages = with pkgs; [ tailscale ];
+
+  # add tailscale CLI and podman config
+  environment.systemPackages = with pkgs; [
+    tailscale
+
+    podman-compose
+    slirp4netns
+    fuse-overlayfs
+  ];
 
   # Docker config
   virtualisation = {
