@@ -28,6 +28,9 @@
   environment.systemPackages = with pkgs; [
     mpv
     zed-editor
+    kdePackages.filelight
+    kdePackages.partitionmanager
+    gparted
   ];
 
   # Fonts
