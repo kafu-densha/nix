@@ -12,6 +12,7 @@
     ./graphical.nix
     ./disks.nix
     ./nvidia.nix
+    ./input.nix
     ../../modules/default.nix
   ];
 
