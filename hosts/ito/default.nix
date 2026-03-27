@@ -53,5 +53,8 @@
     "idle=nomwait"
   ];
 
+  # fix electron on wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   system.stateVersion = "25.11";
 }
