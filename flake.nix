@@ -23,6 +23,10 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-index-database-unstable = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -33,6 +37,14 @@
     };
     systems.url = "github:nix-systems/default";
     git-hooks.url = "github:cachix/git-hooks.nix";
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -47,9 +59,12 @@
       home-manager-unstable,
       neovim-flake,
       nix-index-database,
+      nix-index-database-unstable,
       nix-darwin,
       flake-utils,
       colmena,
+      disko,
+      lanzaboote,
       ...
     }@inputs:
     let
@@ -83,7 +98,9 @@
             ./hosts/ito/default.nix
             agenix.nixosModules.default
             agenix-rekey.nixosModules.default
-            nix-index-database.nixosModules.default
+            nix-index-database-unstable.nixosModules.default
+            disko.nixosModules.disko
+            lanzaboote.nixosModules.lanzaboote
             home-manager-unstable.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
