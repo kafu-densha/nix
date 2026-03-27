@@ -19,10 +19,20 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Enable ZFS support
+  # ZFS
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
   boot.zfs.extraPools = [ "data" ]; # auto import these pools on boot
+  age.secrets.zfs-data-key = {
+    rekeyFile = ../../secrets/zfs-data.key.age;
+    path = "/etc/zfs/data.key";
+    mode = "0400";
+    owner = "root";
+  };
+  systemd.services."zfs-import-data" = {
+    after = [ "agenix.service" ];
+    wants = [ "agenix.service" ];
+  };
 
   # yubikey support
   services.pcscd.enable = true;
