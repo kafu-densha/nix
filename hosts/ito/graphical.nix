@@ -32,6 +32,8 @@
     kdePackages.partitionmanager
     gparted
     vesktop
+    obsidian
+    spotify
 
     # Gaming
     lutris
