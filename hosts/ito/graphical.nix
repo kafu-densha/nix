@@ -24,8 +24,17 @@
     ];
   };
 
+  # Graphical apps
   environment.systemPackages = with pkgs; [
     mpv
     zed-editor
   ];
+
+  # Fonts
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      meslo-lgs-nf
+    ];
+  };
 }
