@@ -24,6 +24,9 @@
   boot.zfs.forceImportRoot = false;
   boot.zfs.extraPools = [ "data" ]; # auto import these pools on boot
 
+  # yubikey support
+  services.pcscd.enable = true;
+
   # allow unfree packages for nvidia
   nixpkgs.config.allowUnfree = true;
 
