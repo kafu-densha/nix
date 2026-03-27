@@ -22,7 +22,7 @@
   # Enable ZFS support
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
-  boot.zfs.extraPools = [ ]; # auto import these pools on boot
+  boot.zfs.extraPools = [ "data" ]; # auto import these pools on boot
 
   # allow unfree packages for nvidia
   nixpkgs.config.allowUnfree = true;
