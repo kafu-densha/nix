@@ -31,14 +31,27 @@
     kdePackages.filelight
     kdePackages.partitionmanager
     gparted
+    vesktop
 
     # Gaming
     lutris
     protonplus
+    prismlauncher
   ];
 
   # Gaming
   programs.steam.enable = true;
+
+  # OBS
+  programs.obs-studio = {
+    enable = true;
+    enableVirtualCamera = true;
+    package = (
+      pkgs.obs-studio.override {
+        cudaSupport = true;
+      }
+    );
+  };
 
   # Fonts
   fonts = {
