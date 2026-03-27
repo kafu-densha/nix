@@ -23,4 +23,9 @@
       "app.zen_browser.zen"
     ];
   };
+
+  environment.systemPackages = with pkgs; [
+    mpv
+    zed-editor
+  ];
 }
