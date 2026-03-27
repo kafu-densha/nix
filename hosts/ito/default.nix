@@ -46,5 +46,11 @@
   # allow unfree packages for nvidia
   nixpkgs.config.allowUnfree = true;
 
+  # fix crashes?
+  boot.kernelParams = [
+    "processor.max_cstate=1"
+    "idle=nomwait"
+  ];
+
   system.stateVersion = "25.11";
 }
