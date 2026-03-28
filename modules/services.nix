@@ -52,16 +52,8 @@
   };
   systemd.user.services.podman-restart = {
     enable = true;
-    wantedBy = [ "multi-user.target" ];
-    wants = [ "network-online.target" ];
-    after = [
-      "network-online.target"
-      "zfs-import-data.service"
-    ];
-
+    wantedBy = [ "default.target" ];
     serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${config.virtualisation.podman.package}/bin/podman start --all --filter restart-policy=always";
       RemainAfterExit = true;
     };
   };
