@@ -49,7 +49,7 @@
     extraGroups = [ "podman" ];
     linger = true;
   };
-  systemd.user.services.podman-restart = {
+  systemd.services.podman-restart = {
     enable = true;
     wantedBy = [ "default.target" ];
     after = [ "podman.service" ];
