@@ -43,7 +43,12 @@
   ];
 
   # Gaming
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    extraPackages = with pkgs; [
+      kdePackages.breeze # fix cursor theme
+    ];
+  };
 
   # OBS
   programs.obs-studio = {
