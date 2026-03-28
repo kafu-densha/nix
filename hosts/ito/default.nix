@@ -56,5 +56,8 @@
   # fix electron on wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  # enable bluetooth
+  hardware.bluetooth.enable = true;
+
   system.stateVersion = "25.11";
 }
