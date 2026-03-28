@@ -35,6 +35,7 @@
     obsidian
     spotify
     google-chrome
+    osu-lazer-bin
 
     # Gaming
     lutris
