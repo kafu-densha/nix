@@ -45,6 +45,20 @@
       defaultNetwork.settings.dns_enabled = true;
     };
   };
-  users.users.elenah.extraGroups = [ "podman" ];
+  users.users.elenah = {
+    extraGroups = [ "podman" ];
+    linger = true;
+  };
+  systemd.services.podman-restart = {
+    enable = true;
+    wantedBy = [ "default.target" ];
+    after = [ "podman.service" ];
+    requires = [ "podman.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${config.virtualisation.podman.package}/bin/podman restart --all";
+      RemainAfterExit = true;
+    };
+  };
 
 }
