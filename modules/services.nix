@@ -43,6 +43,7 @@
       enable = true;
       dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
+
     };
   };
   users.users.elenah = {
@@ -51,12 +52,16 @@
   };
   systemd.services.podman-restart = {
     enable = true;
-    wantedBy = [ "default.target" ];
-    after = [ "podman.service" ];
-    requires = [ "podman.service" ];
+    wantedBy = [ "multi-user.target" ];
+    wants = [ "network-online.target" ];
+    after = [
+      "network-online.target"
+      "zfs-import-data.service"
+    ];
+
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${config.virtualisation.podman.package}/bin/podman restart --all";
+      ExecStart = "${config.virtualisation.podman.package}/bin/podman start --all --filter restart-policy=always";
       RemainAfterExit = true;
     };
   };
