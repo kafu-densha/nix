@@ -34,6 +34,7 @@
     vesktop
     obsidian
     spotify
+    google-chrome
 
     # Gaming
     lutris
