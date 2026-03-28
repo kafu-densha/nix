@@ -42,6 +42,8 @@
     lutris
     protonplus
     prismlauncher
+    wineWow64Packages.stagingFull
+    winetricks
   ];
 
   # Gaming
