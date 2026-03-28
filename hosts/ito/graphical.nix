@@ -89,5 +89,7 @@
         "IPAexMincho"
       ];
     };
+
+    fontDir.enable = true;
   };
 }
