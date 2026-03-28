@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -50,6 +51,10 @@
       kdePackages.breeze # fix cursor theme
     ];
   };
+
+  # Genshin (see https://github.com/ezKEa/aagl-gtk-on-nix)
+  nix.settings = inputs.aagl.nixConfig;
+  programs.anime-game-launcher.enable = true;
 
   # OBS
   programs.obs-studio = {

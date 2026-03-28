@@ -46,6 +46,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -67,6 +71,7 @@
       disko,
       lanzaboote,
       nix-flatpak,
+      aagl,
       ...
     }@inputs:
     let
@@ -106,6 +111,7 @@
             lanzaboote.nixosModules.lanzaboote
             nix-flatpak.nixosModules.nix-flatpak
             home-manager-unstable.nixosModules.home-manager
+            aagl.nixosModules.default
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
