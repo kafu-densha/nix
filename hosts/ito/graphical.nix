@@ -88,19 +88,22 @@
       meslo-lgs-nf
     ];
 
-    fontconfig.defaultFonts = {
-      monospace = [
-        "Fira Code"
-        "IPAexGothic"
-      ];
-      sansSerif = [
-        "Noto Sans"
-        "IPAexGothic"
-      ];
-      serif = [
-        "Noto Serif"
-        "IPAexMincho"
-      ];
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        monospace = [
+          "Fira Code"
+          "IPAexGothic"
+        ];
+        sansSerif = [
+          "Noto Sans"
+          "IPAexGothic"
+        ];
+        serif = [
+          "Noto Serif"
+          "IPAexMincho"
+        ];
+      };
     };
 
     fontDir.enable = true;
