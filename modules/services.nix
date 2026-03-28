@@ -50,7 +50,7 @@
     extraGroups = [ "podman" ];
     linger = true;
   };
-  systemd.services.podman-restart = {
+  systemd.user.services.podman-restart = {
     enable = true;
     wantedBy = [ "multi-user.target" ];
     wants = [ "network-online.target" ];
