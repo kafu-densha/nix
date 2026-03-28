@@ -19,6 +19,10 @@
     git
     dig
 
+    # Dev
+    nil
+    nixd
+
     inputs.neovim-flake.packages.${pkgs.system}.default
   ];
 
