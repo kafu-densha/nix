@@ -13,6 +13,7 @@
     ./disks.nix
     ./nvidia.nix
     ./input.nix
+    ./audio.nix
     ../../modules/default.nix
   ];
 
