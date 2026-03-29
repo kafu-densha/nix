@@ -75,6 +75,48 @@
     enableZshIntegration = true;
   };
 
+  # SSH config
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    matchBlocks = {
+      "*" = {
+        addKeysToAgent = "yes";
+        identityFile = "~/.ssh/id_ed25519";
+      };
+      "hikari" = {
+        hostname = "hikari";
+        forwardAgent = true;
+      };
+      "ito" = {
+        hostname = "ito";
+        forwardAgent = true;
+      };
+      "kako" = {
+        hostname = "kako";
+        user = "ubuntu";
+        forwardAgent = true;
+      };
+      "ronri" = {
+        hostname = "ronri";
+        forwardAgent = true;
+      };
+    };
+    extraConfig = ''
+      # Begin CS161 instructional machine config
+      Host s330-? s330-??
+        HostName %h.cs.berkeley.edu
+        ProxyJump %r@instgw.eecs.berkeley.edu
+        ForwardAgent yes
+      Match Host *.cs.berkeley.edu
+        Port 22
+        User cs161-amk
+        ServerAliveInterval 60
+        ForwardAgent yes
+      # End CS161 instructional machine config
+    '';
+  };
+
   # The state version is required and should stay at the version you
   # originally installed.
   home.stateVersion = "25.11";
