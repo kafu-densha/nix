@@ -84,6 +84,7 @@
         addKeysToAgent = "yes";
         identityFile = "~/.ssh/id_ed25519";
       };
+
       "hikari" = {
         hostname = "hikari";
         forwardAgent = true;
@@ -99,6 +100,27 @@
       };
       "ronri" = {
         hostname = "ronri";
+        forwardAgent = true;
+      };
+
+      # CSUA
+      "soda" = {
+        hostname = "soda";
+        forwardAgent = true;
+      };
+      "tap" = {
+        hostname = "tap";
+        forwardAgent = true;
+      };
+      "latte" = {
+        hostname = "latte";
+        proxyJump = "soda";
+        forwardAgent = true;
+      };
+
+      # OCF
+      "supernova" = {
+        hostname = "supernova";
         forwardAgent = true;
       };
     };
