@@ -20,9 +20,7 @@
       enable = true;
       onCalendar = "weekly";
     };
-    packages = [
-      "app.zen_browser.zen"
-    ];
+    packages = [ ];
   };
 
   # Graphical apps
@@ -38,6 +36,7 @@
     google-chrome
     osu-lazer-bin
     signal-desktop
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Gaming
     lutris
