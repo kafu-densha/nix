@@ -50,6 +50,10 @@
       url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -72,6 +76,7 @@
       lanzaboote,
       nix-flatpak,
       aagl,
+      zen-browser,
       ...
     }@inputs:
     let
