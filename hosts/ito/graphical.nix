@@ -37,6 +37,7 @@
     spotify
     google-chrome
     osu-lazer-bin
+    signal-desktop
 
     # Gaming
     lutris
