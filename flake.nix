@@ -104,6 +104,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.elenah = ./home/default.nix;
+              home-manager.backupFileExtension = "hm-backup";
             }
           ];
         };
@@ -123,6 +124,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.elenah = ./home/default.nix;
+              home-manager.backupFileExtension = "hm-backup";
             }
           ];
         };
