@@ -37,6 +37,7 @@
     osu-lazer-bin
     signal-desktop
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    jellyfin-desktop
 
     # Gaming
     lutris
