@@ -34,6 +34,7 @@
     pay-respects
     wakeonlan
     yubikey-manager
+    yt-dlp
   ];
 
   home.shellAliases = {
