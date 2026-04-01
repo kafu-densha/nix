@@ -123,7 +123,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.elenah = ./home/default.nix;
+              home-manager.users.elenah = ./hosts/ito/home.nix;
               home-manager.backupFileExtension = "hm-backup";
             }
           ];
