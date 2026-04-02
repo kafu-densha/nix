@@ -37,6 +37,9 @@
 
   environment.variables.VISUAL = "nvim";
 
+  # fix ssh agent
+  environment.variables.SSH_SK_PROVIDER = "/usr/local/lib/sk-libfido2.dylib";
+
   programs.nix-index-database.comma.enable = true;
 
   # Necessary for using flakes on this system.
