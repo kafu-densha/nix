@@ -21,4 +21,6 @@
     qr = "kiro-cli restart";
     switch = "cd ~/.nixos && git pull && nh darwin switch && cd -";
   };
+
+  services.ssh-agent.enable = true;
 }
