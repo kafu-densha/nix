@@ -35,7 +35,8 @@
   # setup nix helper
   environment.variables.NH_FLAKE = "/Users/elenah/.nixos";
 
-  environment.variables.VISUAL = "nvim";
+  environment.variables.EDITOR = "vim";
+  environment.variables.VISUAL = "vim";
 
   # fix ssh agent
   environment.variables.SSH_SK_PROVIDER = "/usr/local/lib/sk-libfido2.dylib";
