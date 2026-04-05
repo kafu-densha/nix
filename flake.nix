@@ -156,6 +156,18 @@
           nix-index-database.darwinModules.default
           home-manager-unstable.darwinModules.home-manager
           {
+            # TEMPORARY fix for claude code broken nixpkg
+            nixpkgs.overlays = [
+              (final: prev: {
+                claude-code =
+                  (import inputs.nixpkgs-claude-code {
+                    system = prev.stdenv.hostPlatform.system;
+                    config.allowUnfree = true;
+                  }).claude-code;
+              })
+            ];
+          }
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.elenah = ./hosts/hikari/home.nix;
