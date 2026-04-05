@@ -87,6 +87,7 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPVa9eWADJr7DQf0c7xiJGl2+6KYF9LeGJUfSJj2mT/S" # ito
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAeZsmzMQHKkaAk/PFx1yJG6mijENIy9nFeHySQKJ3R6" # kako
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMVCtRg036ANP+l/vmvzj6EJZL2Ic8s5y5tqyMoaOzrs" # ronri
+        "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBF16Vm3gwviIP1dg/EAx1xxofFm8No8zN6UGYpEM4D72KusDFYwa2M4F+bvf+a0K01OJNNGUnsxFTyizQxwsPj4=" # phone
       ];
       forEachSystem = nixpkgs.lib.genAttrs (import systems);
     in
