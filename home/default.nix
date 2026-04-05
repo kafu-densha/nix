@@ -35,6 +35,7 @@
     wakeonlan
     yubikey-manager
     yt-dlp
+    claude-code
   ];
 
   home.shellAliases = {

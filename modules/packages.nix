@@ -26,6 +26,8 @@
     inputs.neovim-flake.packages.${pkgs.system}.default
   ];
 
+  nixpkgs.config.allowUnfree = true;
+
   programs.mosh.enable = true;
 
   programs.nix-index-database.comma.enable = true;
