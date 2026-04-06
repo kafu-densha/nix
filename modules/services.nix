@@ -53,6 +53,8 @@
   systemd.user.services.podman-restart = {
     enable = true;
     wantedBy = [ "default.target" ];
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
     serviceConfig = {
       RemainAfterExit = true;
     };
