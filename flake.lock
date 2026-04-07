@@ -622,22 +622,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-claude-code": {
-      "locked": {
-        "lastModified": 1775111091,
-        "narHash": "sha256-gip1kskGdhWg6NhJIzF6XpDTRKC8k11kLEtbnk8e5PY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "d627f3795454b9019ee08daa88c8cba7d8b8ee55",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "d627f3795454b9019ee08daa88c8cba7d8b8ee55",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1775036866,
@@ -782,7 +766,6 @@
         "nix-index-database": "nix-index-database",
         "nix-index-database-unstable": "nix-index-database-unstable",
         "nixpkgs": "nixpkgs_5",
-        "nixpkgs-claude-code": "nixpkgs-claude-code",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "systems": "systems_3",
         "zen-browser": "zen-browser"
