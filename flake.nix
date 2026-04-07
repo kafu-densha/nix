@@ -54,10 +54,6 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    nixpkgs-claude-code = {
-      # TEMPORARY fix for claude code broken nixpkg
-      url = "github:NixOS/nixpkgs/d627f3795454b9019ee08daa88c8cba7d8b8ee55";
-    };
   };
 
   outputs =
@@ -81,7 +77,6 @@
       nix-flatpak,
       aagl,
       zen-browser,
-      nixpkgs-claude-code,
       ...
     }@inputs:
     let
@@ -127,18 +122,6 @@
             home-manager-unstable.nixosModules.home-manager
             aagl.nixosModules.default
             {
-              # TEMPORARY fix for claude code broken nixpkg
-              nixpkgs.overlays = [
-                (final: prev: {
-                  claude-code =
-                    (import inputs.nixpkgs-claude-code {
-                      system = prev.stdenv.hostPlatform.system;
-                      config.allowUnfree = true;
-                    }).claude-code;
-                })
-              ];
-            }
-            {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.elenah = ./hosts/ito/home.nix;
@@ -155,18 +138,6 @@
           # agenix-rekey.darwinModules.default
           nix-index-database.darwinModules.default
           home-manager-unstable.darwinModules.home-manager
-          {
-            # TEMPORARY fix for claude code broken nixpkg
-            nixpkgs.overlays = [
-              (final: prev: {
-                claude-code =
-                  (import inputs.nixpkgs-claude-code {
-                    system = prev.stdenv.hostPlatform.system;
-                    config.allowUnfree = true;
-                  }).claude-code;
-              })
-            ];
-          }
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
