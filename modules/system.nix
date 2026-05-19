@@ -42,6 +42,9 @@
   environment.shells = with pkgs; [ zsh ];
   programs.zsh.enable = true;
 
+  age.secrets.elenah-password-hash.rekeyFile = ../secrets/elenah-password-hash.age;
+
+  users.mutableUsers = false;
   users.users.elenah = {
     isNormalUser = true;
     extraGroups = [
@@ -50,6 +53,7 @@
     ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = pubkeys;
+    hashedPasswordFile = config.age.secrets.elenah-password-hash.path;
   };
 
   # fix colmena apply needing interactive sudo password entry
