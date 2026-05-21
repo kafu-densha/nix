@@ -6,10 +6,8 @@ let
   publicURL = "soulcraft.elenahaug.com";
 in
 {
-  elenahaug-web.enable = true;
-
   services.nginx.virtualHosts."${publicURL}" = {
-    enableACME = true;
+    useACMEHost = "elenahaug.com";
     forceSSL = true;
     locations."/" = {
       proxyPass = "http://127.0.0.1:8123";
@@ -22,4 +20,5 @@ in
       '';
     };
   };
+  security.acme.certs."elenahaug.com".extraDomainNames = [ "soulcraft.elenahaug.com" ];
 }
