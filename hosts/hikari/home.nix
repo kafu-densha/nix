@@ -12,8 +12,6 @@ in
   ];
 
   home.sessionPath = [
-    "/opt/homebrew/bin"
-    "/opt/homebrew/sbin"
     "/usr/local/bin"
     "/Users/elenah/scripts"
     "/Applications/Docker.app/Contents/Resources/bin/"
