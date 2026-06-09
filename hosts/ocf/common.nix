@@ -5,6 +5,8 @@
 }:
 
 {
+  imports = [ ../../modules/pkgs-config.nix ];
+
   home.username = "elenah";
   home.homeDirectory = "/home/b/bl/elenah";
 
