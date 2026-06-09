@@ -10,5 +10,6 @@
     ./secrets.nix
     ./stats.nix
     ./elenahaug-web.nix
+    ./pkgs-config.nix
   ];
 }
