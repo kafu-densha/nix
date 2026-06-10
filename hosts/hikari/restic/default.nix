@@ -34,7 +34,6 @@
         "/Users/elenahaug/Library/Application Support/zen"
         "/Users/elenahaug/.ssh"
         "/Users/elenahaug/.zshrc"
-        "/Users/elenahaug/Backups"
         "/Users/elenahaug/scripts"
         "/Users/elenahaug/.config"
       ];
