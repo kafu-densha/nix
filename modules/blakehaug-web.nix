@@ -117,13 +117,14 @@ in
       ];
 
       systemd.tmpfiles.rules = [
-        "d /var/www/elenahaug.com 0755 deploy nginx -"
+        "d /var/www/elenahaug.com 0755 elenahaug-web-deploy nginx -"
       ];
 
-      users.users.deploy = {
-        isNormalUser = true;
-        createHome = true;
-        home = "/home/deploy";
+      users.groups.elenahaug-web-deploy = { };
+      users.users.elenahaug-web-deploy = {
+        isSystemUser = true;
+        useDefaultShell = true;
+        group = "elenahaug-web-deploy";
         description = "GitHub Actions Deployment User";
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP/BzaxAtrueXUriQLlEFaM6c4QF1OKH4teqFVhtOU54 github-actions-deploy"
