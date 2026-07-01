@@ -12,5 +12,6 @@
     ./elenahaug-web.nix
     ./pkgs-config.nix
     ./oom.nix
+    ./direnv.nix
   ];
 }
