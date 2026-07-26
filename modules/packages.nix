@@ -34,6 +34,11 @@
     flake = "/home/elenah/.nixos";
   };
 
+  nix.optimise = {
+    automatic = true;
+    dates = "weekly";
+  };
+
   programs.tmux.enable = true;
   programs.screen.enable = true;
 
