@@ -124,12 +124,6 @@ in
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
 
-  # Binary cache
-  nix.settings.substituters = [ "https://nixcache.elenahaug.com" ];
-  nix.settings.trusted-public-keys = [
-    "nixcache.elenahaug.com-1:gCvj6d/XaSiX6YpelqVPX/kCZAfvAraN8BhtN22TG50="
-  ];
-
   # enable linux-builder
   nix.linux-builder = {
     enable = false;
