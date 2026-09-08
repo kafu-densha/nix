@@ -9,5 +9,5 @@
     ./git.nix
   ];
 
-  elenahaug-web.enable = true;
+  web.enable = true;
 }
