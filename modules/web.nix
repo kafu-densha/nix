@@ -5,10 +5,10 @@
 }:
 
 let
-  cfg = config.elenahaug-web;
+  cfg = config.web;
 in
 {
-  options.elenahaug-web = {
+  options.web = {
     enable = lib.mkEnableOption ''
       shared nginx + ACME setup for elenahaug.com sites. Provides a
       configured nginx (with a 404 default vhost), accepted ACME terms, and
@@ -25,15 +25,32 @@ in
       description = "Contact email used for ACME registration.";
     };
 
+    rootDomain = lib.mkOption {
+      type = lib.types.str;
+      default = "elenahaug.com";
+    };
+
     serveRoot = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = ''
-        Serve the root `elenahaug.com` static site (and the
-        `www.elenahaug.com` → `elenahaug.com` redirect) from this host.
-        Content lives at `/var/www/elenahaug.com` and is owned by the
-        `deploy` user so GitHub Actions can rsync into it. Exactly one
-        host should set this.
+        serve the root site with www redirect and content at `/var/www/{rootDomain}`
+      '';
+    };
+
+    serveRootUser = lib.mkOption {
+      type = lib.types.str;
+      default = "elenahaug-web-deploy";
+      description = ''
+        user to give deploy access to the /var/www/{rootDomain} dir
+      '';
+    };
+
+    serveRootKey = lib.mkOption {
+      type = lib.types.str;
+      default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP/BzaxAtrueXUriQLlEFaM6c4QF1OKH4teqFVhtOU54 github-actions-deploy";
+      description = ''
+        ssh key for the github actions deployment user
       '';
     };
 
@@ -45,10 +62,7 @@ in
         "ronri.ocf.berkeley.edu"
       ];
       description = ''
-        Additional domains that should 302-redirect to elenahaug.com. These
-        aren't on Cloudflare-managed DNS, so they're issued via HTTP-01
-        (nginx forces `dnsProvider = null` on `enableACME` certs, which is
-        the desired behavior here).
+        add 302 redirects to the root domain
       '';
     };
   };
@@ -72,7 +86,7 @@ in
         // lib.genAttrs cfg.redirectDomains (_: {
           enableACME = true;
           forceSSL = true;
-          globalRedirect = "elenahaug.com";
+          globalRedirect = cfg.rootDomain;
           redirectCode = 302;
         });
       };
@@ -91,43 +105,40 @@ in
           dnsProvider = "cloudflare";
           environmentFile = config.age.secrets.cloudflare-api-key.path;
         };
-        certs."elenahaug.com".group = "nginx";
+        certs."${cfg.rootDomain}".group = "nginx";
       };
     })
 
     (lib.mkIf (cfg.enable && cfg.serveRoot) {
       services.nginx.virtualHosts = {
-        "elenahaug.com" = {
+        "${cfg.rootDomain}" = {
           enableACME = true;
           forceSSL = true;
-          root = "/var/www/elenahaug.com";
+          root = "/var/www/${cfg.rootDomain}";
         };
-        "www.elenahaug.com" = {
-          useACMEHost = "elenahaug.com";
+        "www.${cfg.rootDomain}" = {
+          useACMEHost = cfg.rootDomain;
           forceSSL = true;
-          globalRedirect = "elenahaug.com";
+          globalRedirect = cfg.rootDomain;
         };
       };
 
-      # Declares the shared `elenahaug.com` cert (DNS-01 details come from
-      # security.acme.defaults). Other modules on this host can piggyback
-      # by appending to `extraDomainNames`.
-      security.acme.certs."elenahaug.com".extraDomainNames = [
-        "www.elenahaug.com"
+      security.acme.certs."${cfg.rootDomain}".extraDomainNames = [
+        "www.${cfg.rootDomain}"
       ];
 
       systemd.tmpfiles.rules = [
-        "d /var/www/elenahaug.com 0755 elenahaug-web-deploy nginx -"
+        "d /var/www/${cfg.rootDomain} 0755 ${cfg.serveRootUser} nginx -"
       ];
 
-      users.groups.elenahaug-web-deploy = { };
-      users.users.elenahaug-web-deploy = {
+      users.groups."${cfg.serveRootUser}" = { };
+      users.users."${cfg.serveRootUser}" = {
         isSystemUser = true;
         useDefaultShell = true;
-        group = "elenahaug-web-deploy";
+        group = cfg.serveRootUser;
         description = "GitHub Actions Deployment User";
         openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP/BzaxAtrueXUriQLlEFaM6c4QF1OKH4teqFVhtOU54 github-actions-deploy"
+          cfg.serveRootKey
         ];
       };
     })

@@ -3,7 +3,7 @@
 }:
 
 {
-  elenahaug-web = {
+  web = {
     enable = true;
     serveRoot = true;
     redirectDomains = [

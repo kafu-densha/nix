@@ -9,7 +9,7 @@
     ./system.nix
     ./secrets.nix
     ./stats.nix
-    ./elenahaug-web.nix
+    ./web.nix
     ./pkgs-config.nix
     ./oom.nix
     ./direnv.nix
