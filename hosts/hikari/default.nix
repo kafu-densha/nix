@@ -150,7 +150,7 @@ in
   };
 
   environment.variables = {
-    NIKS3_SERVER_URL = "https://nixcache.elenahaug.com";
+    NIKS3_SERVER_URL = "https://niks3.kafu.observer";
     NIKS3_AUTH_TOKEN_FILE = config.age.secrets.niks3-auth-token-client.path;
   };
 
