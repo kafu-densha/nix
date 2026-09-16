@@ -561,7 +561,7 @@ in
             enabled = true;
             allow_sign_up = true;
             scopes = "read:org,user:email";
-            role_attribute_path = "[login=='BNH440'][0] && 'GrafanaAdmin'";
+            role_attribute_path = "[login=='kafu-densha'][0] && 'GrafanaAdmin'";
             role_attribute_strict = true;
             allow_assign_grafana_admin = true;
           };

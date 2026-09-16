@@ -9,7 +9,7 @@
 let
   cfg = config.niks3;
   rootDomain = config.web.rootDomain;
-  githubRepo = "BNH440/nix";
+  githubRepo = "kafu-densha/nix";
   niks3Pkgs = inputs.niks3.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
