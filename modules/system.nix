@@ -68,7 +68,9 @@
     useDefaultShell = true; # system users don't have shells but one is required for colmena
     group = "deploy-user";
     description = "Colmena Nix Deploy User";
-    openssh.authorizedKeys.keys = yubikeys;
+    openssh.authorizedKeys.keys = yubikeys ++ [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFm4MatcYjQ8oK+rriBRh5kx1+rAaAtkh7P0b/otBm39"
+    ];
   };
 
   # fix colmena apply needing interactive sudo password entry
