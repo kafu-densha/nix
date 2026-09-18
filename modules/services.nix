@@ -25,7 +25,6 @@
     useRoutingFeatures = "both";
     extraSetFlags = [
       "--accept-routes" # ronri has routes configured in ronri/networking.nix
-      "--ssh"
     ];
   };
 
