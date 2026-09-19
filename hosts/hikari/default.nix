@@ -8,22 +8,6 @@
 
 let
   openssh-sk-standalone = import ./pkgs/openssh-sk-standalone.nix { inherit pkgs; };
-
-  nixpkgs-561388-drv = pkgs.applyPatches {
-    name = "nixpkgs-561388-patch";
-    src = inputs.nixpkgs-unstable;
-    patches = [
-      (pkgs.fetchpatch2 {
-        url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/561388.patch";
-        hash = "sha256-WARJenY/rozQgpFqwV2eppQHKso3uNzSnERO7KVepsI=";
-      })
-    ];
-  };
-
-  nixpkgs-561388 = import nixpkgs-561388-drv {
-    system = "aarch64-darwin";
-    config.allowUnfree = true;
-  };
 in
 {
   imports = [
@@ -62,7 +46,6 @@ in
     jetbrains.pycharm
     jetbrains.datagrip
     jetbrains.rust-rover
-    nixpkgs-561388.discord
 
     # CLI
     imagemagick
