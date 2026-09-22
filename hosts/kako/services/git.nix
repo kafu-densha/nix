@@ -35,7 +35,7 @@ in
     let
       adminCmd = "${lib.getExe cfg.package} admin user";
       pwd = config.age.secrets.forgejo-admin-password;
-      user = "blakeh";
+      user = "elenah";
     in
     ''
       ${adminCmd} create --admin --email "root@localhost" --username ${user} --password "$(tr -d '\n' < ${pwd.path})" || true

@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   ...
 }:
@@ -50,7 +49,7 @@
 
     };
   };
-  users.users.blakeh = {
+  users.users.elenah = {
     extraGroups = [ "podman" ];
     linger = true;
   };

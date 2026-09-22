@@ -7,7 +7,6 @@
   imports = [
     ./hardware.nix
     ./networking.nix
-    ./services/default.nix
     ../../modules/default.nix
     ../../modules/no-gui.nix
   ];

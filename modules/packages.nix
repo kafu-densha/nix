@@ -31,7 +31,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/blakeh/.nixos";
+    flake = "/home/elenah/.nixos";
   };
 
   nix.optimise = {

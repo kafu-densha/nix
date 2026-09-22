@@ -9,25 +9,16 @@ let
 in
 {
   options.web = {
-    enable = lib.mkEnableOption ''
-      shared nginx + ACME setup for blakehaug.com sites. Provides a
-      configured nginx (with a 404 default vhost), accepted ACME terms, and
-      `security.acme.defaults` wired for Cloudflare DNS-01 — so any cert
-      declared on this host via `security.acme.certs.<name>` (and referenced
-      from a vhost via `useACMEHost`) inherits DNS-01 with no further
-      boilerplate. The root `blakehaug.com` static site is opted into
-      separately via `serveRoot`.
-    '';
+    enable = lib.mkEnableOption "web config";
 
     acmeEmail = lib.mkOption {
       type = lib.types.str;
-      default = "blake@blakehaug.com";
-      description = "Contact email used for ACME registration.";
+      default = "acme@kafu.observer";
     };
 
     rootDomain = lib.mkOption {
       type = lib.types.str;
-      default = "blakehaug.com";
+      default = "kafu.observer";
     };
 
     serveRoot = lib.mkOption {
@@ -40,7 +31,7 @@ in
 
     serveRootUser = lib.mkOption {
       type = lib.types.str;
-      default = "blakehaug-web-deploy";
+      default = "kafu-densha-web-deploy";
       description = ''
         user to give deploy access to the /var/www/{rootDomain} dir
       '';
@@ -57,10 +48,6 @@ in
     redirectDomains = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
-      example = [
-        "blake.ocf.berkeley.edu"
-        "ronri.ocf.berkeley.edu"
-      ];
       description = ''
         add 302 redirects to the root domain
       '';

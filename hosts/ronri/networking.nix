@@ -42,9 +42,4 @@
     "--advertise-exit-node"
     "--exit-node-allow-lan-access"
   ];
-
-  # Open ports
-  # networking.firewall.allowedTCPPorts = [ 25565 ];
-  # networking.firewall.allowedUDPPorts = [ 25565 ];
-  # networking.firewall.allowedTCPPorts = [ 8888 ];
 }

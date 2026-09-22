@@ -9,10 +9,10 @@ let
     url = "https://storage.kafu.observer/wallpapers/kafu.png";
     sha256 = "14bq4rna783jy0flmsm8g0ik64d100acr8j11rnq7s8nlnz5jbhs";
   };
-  night = pkgs.fetchurl {
-    url = "https://storage.kafu.observer/wallpapers/night.png";
-    sha256 = "0rv9s187x5zvpl27vxv24pn2xw96lqh84p8dlb921v5va59fdbrs";
-  };
+  # night = pkgs.fetchurl {
+  #   url = "https://storage.kafu.observer/wallpapers/night.png";
+  #   sha256 = "0rv9s187x5zvpl27vxv24pn2xw96lqh84p8dlb921v5va59fdbrs";
+  # };
 in
 {
   imports = [
@@ -44,7 +44,7 @@ in
       #   DisablePocket = true;
       # };
       profiles = {
-        "blakeh" = {
+        "elenah" = {
           id = 0;
           isDefault = true;
 

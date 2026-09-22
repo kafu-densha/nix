@@ -8,7 +8,7 @@ let
   backupTemplate = {
     passwordFile = config.age.secrets.ito-restic-backup-password.path;
     initialize = true;
-    user = "blakeh";
+    user = "elenah";
     timerConfig = {
       OnCalendar = "*-*-* 03:00:00";
       Persistent = true;
@@ -24,7 +24,7 @@ let
 in
 {
   age.secrets.ito-restic-backup-password = {
-    owner = "blakeh";
+    owner = "elenah";
     group = "users";
     mode = "600";
     rekeyFile = ../../secrets/ito-restic-backup-password.age;
@@ -44,9 +44,9 @@ in
     ];
     ito-home-backup = lib.mkMerge [
       {
-        paths = [ "/home/blakeh" ];
+        paths = [ "/home/elenah" ];
         exclude = [
-          "/home/blakeh/.local"
+          "/home/elenah/.local"
         ];
         repository = "sftp:backup:/home/restic/ito-home-backup";
       }
