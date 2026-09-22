@@ -1,5 +1,5 @@
 {
-  description = "NixOS flake for elenah nix machines";
+  description = "NixOS flake for kafu-densha nix machines";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -60,10 +60,6 @@
       url = "github:bnh440/tsexit";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    copyparty = {
-      url = "github:9001/copyparty";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixvim = {
       url = "github:nix-community/nixvim/nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -99,7 +95,6 @@
       lanzaboote,
       aagl,
       niks3,
-      copyparty,
       ocf-nix,
       ocf-home-manager,
       git-worktree-scripts,
@@ -164,11 +159,7 @@
 
       nixosHosts = {
         ronri = { };
-        kako = {
-          extraModules = [
-            copyparty.nixosModules.default
-          ];
-        };
+        kako = { };
         ito = {
           hmConfig = ./hosts/ito/home.nix;
           extraModules = [

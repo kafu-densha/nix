@@ -24,19 +24,19 @@
         "Photos Library.photoslibrary"
         "node_modules"
         "/Volumes/Crucial X9/.Trashes"
-        "/Users/elenahaug/.config/darktable/data.db-pre-*"
-        "/Users/elenahaug/.config/darktable/library.db-pre-*"
+        "/Users/elenah/.config/darktable/data.db-pre-*"
+        "/Users/elenah/.config/darktable/library.db-pre-*"
       ];
       documentsBackupPaths = [
-        "/Users/elenahaug/Documents"
-        "/Users/elenahaug/Pictures"
+        "/Users/elenah/Documents"
+        "/Users/elenah/Pictures"
       ];
       configsBackupPaths = [
-        "/Users/elenahaug/Library/Application Support/zen"
-        "/Users/elenahaug/.ssh"
-        "/Users/elenahaug/.zshrc"
-        "/Users/elenahaug/scripts"
-        "/Users/elenahaug/.config"
+        "/Users/elenah/Library/Application Support/zen"
+        "/Users/elenah/.ssh"
+        "/Users/elenah/.zshrc"
+        "/Users/elenah/scripts"
+        "/Users/elenah/.config"
       ];
       externalSSDBackupPath = lib.escapeShellArg "/Volumes/Crucial X9";
       allPaths = documentsBackupPaths ++ configsBackupPaths;
