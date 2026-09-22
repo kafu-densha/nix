@@ -48,8 +48,8 @@
   users.mutableUsers = false;
 
   # main user setup
-  age.secrets.blakeh-password-hash.rekeyFile = ../secrets/blakeh-password-hash.age;
-  users.users.blakeh = {
+  age.secrets.elenah-password-hash.rekeyFile = ../secrets/elenah-password-hash.age;
+  users.users.elenah = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
@@ -57,7 +57,7 @@
     ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = pubkeys;
-    hashedPasswordFile = config.age.secrets.blakeh-password-hash.path;
+    hashedPasswordFile = config.age.secrets.elenah-password-hash.path;
   };
 
   # deploy-user setup

@@ -1,15 +1,14 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 
 {
   imports = [ ../../modules/pkgs-config.nix ];
 
-  home.username = "blakeh";
-  home.homeDirectory = "/home/b/bl/blakeh";
+  home.username = "elenah";
+  home.homeDirectory = "/home/e/el/elenah";
 
   services.ssh-agent.enable = lib.mkForce false;
 

@@ -16,7 +16,7 @@ in
 
   home.sessionPath = [
     "/usr/local/bin"
-    "/Users/blakeh/scripts"
+    "/Users/elenah/scripts"
     "/Applications/Docker.app/Contents/Resources/bin/"
   ];
 

@@ -6,7 +6,7 @@
 {
   # restic backup secret
   age.secrets.macbook-restic-backup-password = {
-    owner = "blakeh";
+    owner = "elenah";
     group = "staff";
     rekeyFile = ../../../secrets/macbook-restic-backup-password.age;
   };
@@ -24,26 +24,26 @@
         "Photos Library.photoslibrary"
         "node_modules"
         "/Volumes/Crucial X9/.Trashes"
-        "/Users/blakehaug/.config/darktable/data.db-pre-*"
-        "/Users/blakehaug/.config/darktable/library.db-pre-*"
+        "/Users/elenah/.config/darktable/data.db-pre-*"
+        "/Users/elenah/.config/darktable/library.db-pre-*"
       ];
       documentsBackupPaths = [
-        "/Users/blakehaug/Documents"
-        "/Users/blakehaug/Pictures"
+        "/Users/elenah/Documents"
+        "/Users/elenah/Pictures"
       ];
       configsBackupPaths = [
-        "/Users/blakehaug/Library/Application Support/zen"
-        "/Users/blakehaug/.ssh"
-        "/Users/blakehaug/.zshrc"
-        "/Users/blakehaug/scripts"
-        "/Users/blakehaug/.config"
+        "/Users/elenah/Library/Application Support/zen"
+        "/Users/elenah/.ssh"
+        "/Users/elenah/.zshrc"
+        "/Users/elenah/scripts"
+        "/Users/elenah/.config"
       ];
       externalSSDBackupPath = lib.escapeShellArg "/Volumes/Crucial X9";
       allPaths = documentsBackupPaths ++ configsBackupPaths;
       pathsSep = lib.escapeShellArgs allPaths;
       excludeList = builtins.concatStringsSep " " (map (x: "--exclude ${lib.escapeShellArg x}") exclude);
       host = "blakes-macbook-pro";
-      EnvironmentVariables.PATH = "/etc/profiles/per-user/blakeh/bin:/run/current-system/sw/bin:/opt/homebrew/bin:/usr/bin:/bin";
+      EnvironmentVariables.PATH = "/etc/profiles/per-user/elenah/bin:/run/current-system/sw/bin:/opt/homebrew/bin:/usr/bin:/bin";
     in
     builtins.listToAttrs (
       map (target: {
@@ -57,8 +57,8 @@
               Hour = 1;
               Minute = 30;
             }; # 1:30 AM
-            StandardOutPath = "/Users/blakeh/Library/Logs/restic-${target}-backup-auto.out";
-            StandardErrorPath = "/Users/blakeh/Library/Logs/restic-${target}-backup-auto.err";
+            StandardOutPath = "/Users/elenah/Library/Logs/restic-${target}-backup-auto.out";
+            StandardErrorPath = "/Users/elenah/Library/Logs/restic-${target}-backup-auto.err";
           };
         };
       }) backup-targets
@@ -71,8 +71,8 @@
           serviceConfig = {
             inherit EnvironmentVariables;
             # manual activation
-            StandardOutPath = "/Users/blakeh/Library/Logs/restic-${target}-backup-external-ssd-manual.out";
-            StandardErrorPath = "/Users/blakeh/Library/Logs/restic-${target}-backup-external-ssd-manual.err";
+            StandardOutPath = "/Users/elenah/Library/Logs/restic-${target}-backup-external-ssd-manual.out";
+            StandardErrorPath = "/Users/elenah/Library/Logs/restic-${target}-backup-external-ssd-manual.err";
           };
         };
       }) backup-targets
@@ -94,8 +94,8 @@
               Hour = 3;
               Minute = 30;
             }; # 3:30 AM on the 1st of each month
-            StandardOutPath = "/Users/blakeh/Library/Logs/restic-${target}-prune-auto.out";
-            StandardErrorPath = "/Users/blakeh/Library/Logs/restic-${target}-prune-auto.err";
+            StandardOutPath = "/Users/elenah/Library/Logs/restic-${target}-prune-auto.out";
+            StandardErrorPath = "/Users/elenah/Library/Logs/restic-${target}-prune-auto.err";
           };
         };
       }) backup-targets
@@ -104,7 +104,7 @@
   # log rotation
   environment.etc."newsyslog.d/restic.conf".text = ''
     # logfilename                              [owner:group]   mode count size when  flags
-    /Users/blakeh/Library/Logs/restic-*.out    blakeh:staff    644  5     5000 * JG
-    /Users/blakeh/Library/Logs/restic-*.err    blakeh:staff    644  5     5000 * JG
+    /Users/elenah/Library/Logs/restic-*.out    elenah:staff    644  5     5000 * JG
+    /Users/elenah/Library/Logs/restic-*.err    elenah:staff    644  5     5000 * JG
   '';
 }

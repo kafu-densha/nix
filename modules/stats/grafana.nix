@@ -686,6 +686,8 @@ in
       # allow pushing of logs to loki over tailscale
       networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 3100 ];
 
+      web.enable = lib.mkDefault true;
+
       services.nginx.virtualHosts = {
         "${publicURL}" = {
           useACMEHost = rootDomain;

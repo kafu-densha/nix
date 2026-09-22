@@ -17,9 +17,9 @@ in
     ./restic/default.nix
   ];
 
-  users.users.blakeh = {
-    name = "blakeh";
-    home = "/Users/blakeh";
+  users.users.elenah = {
+    name = "elenah";
+    home = "/Users/elenah";
   };
 
   programs.zsh = {
@@ -63,7 +63,7 @@ in
     openssh
   ];
 
-  system.primaryUser = "blakeh";
+  system.primaryUser = "elenah";
 
   homebrew = {
     enable = true;
@@ -117,7 +117,7 @@ in
   '';
 
   # setup nix helper
-  environment.variables.NH_FLAKE = "/Users/blakeh/.nixos";
+  environment.variables.NH_FLAKE = "/Users/elenah/.nixos";
 
   programs.nix-index-database.comma.enable = true;
 
@@ -139,11 +139,11 @@ in
       };
     };
   };
-  nix.settings.trusted-users = [ "blakeh" ];
+  nix.settings.trusted-users = [ "elenah" ];
 
   networking.hostName = "hikari";
   age.secrets.niks3-auth-token-client = {
-    owner = "blakeh";
+    owner = "elenah";
     group = "staff";
     rekeyFile = ../../secrets/niks3-auth-token.age;
   };
