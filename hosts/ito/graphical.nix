@@ -231,7 +231,8 @@ in
 
   # Genshin (see https://github.com/ezKEa/aagl-gtk-on-nix)
   nix.settings = inputs.aagl.nixConfig;
-  programs.anime-game-launcher.enable = true;
+  programs.anime-game-launcher.enable = true; # genshin
+  programs.sleepy-launcher.enable = true; # zzz
 
   # OBS
   programs.obs-studio = {
