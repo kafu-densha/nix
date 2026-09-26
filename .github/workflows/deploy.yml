@@ -59,6 +59,10 @@ jobs:
             experimental-features = nix-command flakes
             accept-flake-config = true
 
+      - uses: Mic92/niks3-action@v1
+        with:
+          server-url: ${{ vars.NIKS3_SERVER }}
+
       - name: Colmena apply
         run: |
           if [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
