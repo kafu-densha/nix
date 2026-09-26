@@ -539,10 +539,10 @@ in
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
 
-      age.secrets.grafana-github-oauth.rekeyFile = ../../secrets/grafana-github-oauth.age;
+      age.secrets.grafana-kanidm-oauth.rekeyFile = ../../secrets/grafana-kanidm-oauth.age;
 
       systemd.services.grafana.serviceConfig.EnvironmentFile =
-        config.age.secrets.grafana-github-oauth.path;
+        config.age.secrets.grafana-kanidm-oauth.path;
 
       services.grafana = {
         enable = true;
@@ -557,14 +557,25 @@ in
           };
           analytics.reporting_enabled = false;
           auth.disable_login_form = true;
-          "auth.github" = {
-            enabled = true;
-            allow_sign_up = true;
-            scopes = "read:org,user:email";
-            role_attribute_path = "[login=='kafu-densha'][0] && 'GrafanaAdmin'";
-            role_attribute_strict = true;
-            allow_assign_grafana_admin = true;
-          };
+          "auth.generic_oauth" =
+            let
+              idmURL = "https://idm.${rootDomain}";
+            in
+            {
+              enabled = true;
+              allow_sign_up = true;
+              client_id = "grafana";
+              scopes = "openid,profile,email,groups";
+              auth_url = "${idmURL}/ui/oauth2";
+              token_url = "${idmURL}/oauth2/token";
+              api_url = "${idmURL}/oauth2/openid/grafana/userinfo";
+              use_pkce = true;
+              use_refresh_token = true;
+              groups_attribute_path = "groups";
+              role_attribute_path = "contains(grafana_role[*], 'GrafanaAdmin') && 'GrafanaAdmin' || contains(grafana_role[*], 'Admin') && 'Admin' || contains(grafana_role[*], 'Editor') && 'Editor' || 'Viewer'";
+              role_attribute_strict = true;
+              allow_assign_grafana_admin = true;
+            };
           security.secret_key = "SW2YcwTIb9zpOOhoPsMm"; # prev default before 26.05
         };
         provision = {
