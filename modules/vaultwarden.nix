@@ -34,6 +34,11 @@ in
         ROCKET_ADDRESS = "127.0.0.1";
         ROCKET_PORT = 8222;
         ROCKET_LOG = "critical";
+
+        SSO_ENABLED = true;
+        SSO_ONLY = true;
+        SSO_AUTHORITY = "https://idm.${rootDomain}/oauth2/openid/vaultwarden";
+        SSO_CLIENT_ID = "vaultwarden";
       };
     };
 

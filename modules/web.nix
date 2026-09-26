@@ -85,13 +85,13 @@ in
 
       age.secrets.cloudflare-api-key.rekeyFile = ../secrets/cloudflare-api-key.age;
 
+      users.users."nginx".extraGroups = [ "acme" ];
       security.acme = {
         acceptTerms = true;
         defaults = {
           email = cfg.acmeEmail;
           dnsProvider = "cloudflare";
           environmentFile = config.age.secrets.cloudflare-api-key.path;
-          group = "nginx";
         };
       };
     })
