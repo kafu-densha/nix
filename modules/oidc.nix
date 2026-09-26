@@ -12,6 +12,7 @@ let
   services = [
     "vaultwarden"
     "grafana"
+    "forgejo"
   ];
   certDir = config.security.acme.certs."${rootDomain}".directory;
 in
@@ -87,6 +88,18 @@ in
               users = [ "Viewer" ];
               service_admin = [ "GrafanaAdmin" ];
             };
+          };
+          forgejo = {
+            displayName = "Forgejo";
+            originUrl = "https://git.${rootDomain}/user/oauth2/Kanidm/callback";
+            originLanding = "https://git.${rootDomain}";
+            basicSecretFile = config.age.secrets.service-forgejo-secret.path;
+            scopeMaps."users" = [
+              "openid"
+              "email"
+              "profile"
+              "groups"
+            ];
           };
         };
       };
