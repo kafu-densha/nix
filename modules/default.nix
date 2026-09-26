@@ -14,5 +14,7 @@
     ./pkgs-config.nix
     ./oom.nix
     ./direnv.nix
+    ./vaultwarden.nix
+    ./oidc.nix
   ];
 }
