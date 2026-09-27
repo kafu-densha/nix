@@ -27,7 +27,7 @@ in
     owner = "elenah";
     group = "users";
     mode = "600";
-    rekeyFile = ../../secrets/ito-restic-backup-password.age;
+    rekeyFile = ../../secrets/master-keyed/ito-restic-backup-password.age;
   };
 
   services.restic.backups = {

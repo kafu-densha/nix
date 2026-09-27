@@ -539,7 +539,7 @@ in
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
 
-      age.secrets.grafana-kanidm-oauth.rekeyFile = ../../secrets/grafana-kanidm-oauth.age;
+      age.secrets.grafana-kanidm-oauth.rekeyFile = ../../secrets/master-keyed/grafana-kanidm-oauth.age;
 
       systemd.services.grafana.serviceConfig.EnvironmentFile =
         config.age.secrets.grafana-kanidm-oauth.path;

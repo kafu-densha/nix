@@ -145,7 +145,7 @@ in
   age.secrets.niks3-auth-token-client = {
     owner = "elenah";
     group = "staff";
-    rekeyFile = ../../secrets/niks3-auth-token.age;
+    rekeyFile = ../../secrets/master-keyed/niks3-auth-token.age;
   };
 
   environment.variables = {

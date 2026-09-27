@@ -21,7 +21,7 @@
     "flakes"
   ];
 
-  age.secrets.niks3-auth-token-client.rekeyFile = ../secrets/niks3-auth-token.age;
+  age.secrets.niks3-auth-token-client.rekeyFile = ../secrets/master-keyed/niks3-auth-token.age;
 
   services.niks3-auto-upload = {
     enable = true;
@@ -48,7 +48,7 @@
   users.mutableUsers = false;
 
   # main user setup
-  age.secrets.elenah-password-hash.rekeyFile = ../secrets/elenah-password-hash.age;
+  age.secrets.elenah-password-hash.rekeyFile = ../secrets/master-keyed/elenah-password-hash.age;
   users.users.elenah = {
     isNormalUser = true;
     extraGroups = [

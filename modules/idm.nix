@@ -30,7 +30,7 @@ in
           owner = "kanidm";
           group = "kanidm";
           mode = "600";
-          rekeyFile = ../secrets/kanidm/service-${service}-secret.age;
+          rekeyFile = ../secrets/master-keyed/kanidm/service-${service}-secret.age;
         };
       }) services
     );

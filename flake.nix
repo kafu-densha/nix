@@ -263,11 +263,20 @@
         in
         {
           default = pkgs.mkShell {
-            inherit shellHook;
+            shellHook =
+              let
+                selectedYubikey = "primary";
+              in
+              (
+                shellHook
+                + ''
+                  export AGENIX_REKEY_PRIMARY_IDENTITY="$(grep -Poe "^#    Recipient(?: \(pq safe\))?: \K.*$" secrets/master-identities/yubikey-${selectedYubikey}.pub | head -1)"
+                ''
+              );
             buildInputs = enabledPackages;
             packages = [
               pkgs.agenix-rekey
-              pkgs.age-plugin-fido2-hmac
+              pkgs.age-plugin-yubikey
               colmena.packages.${system}.colmena
             ];
           };

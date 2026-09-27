@@ -8,7 +8,7 @@
   age.secrets.macbook-restic-backup-password = {
     owner = "elenah";
     group = "staff";
-    rekeyFile = ../../../secrets/macbook-restic-backup-password.age;
+    rekeyFile = ../../../secrets/master-keyed/macbook-restic-backup-password.age;
   };
 
   launchd.user.agents =

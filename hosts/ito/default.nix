@@ -29,7 +29,7 @@
   boot.zfs.forceImportRoot = false;
   boot.zfs.extraPools = [ "data" ]; # auto import these pools on boot
   age.secrets.zfs-data-key = {
-    rekeyFile = ../../secrets/zfs-data.key.age;
+    rekeyFile = ../../secrets/master-keyed/zfs-data.key.age;
     path = "/etc/zfs/data.key";
     mode = "0400";
     owner = "root";

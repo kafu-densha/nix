@@ -83,7 +83,7 @@ in
         443
       ];
 
-      age.secrets.cloudflare-api-key.rekeyFile = ../secrets/cloudflare-api-key.age;
+      age.secrets.cloudflare-api-key.rekeyFile = ../secrets/master-keyed/cloudflare-api-key.age;
 
       users.users."nginx".extraGroups = [ "acme" ];
       security.acme = {

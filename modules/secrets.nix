@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   ...
 }:
 
@@ -17,10 +18,7 @@ in
 
   age.rekey = {
     hostPubkey = hostkeys.${config.networking.hostName};
-    masterIdentities = [
-      ../secrets/master-identities/yubikey-primary.pub
-      ../secrets/master-identities/yubikey-backup.pub
-    ];
+    masterIdentities = lib.filesystem.listFilesRecursive ../secrets/master-identities;
     storageMode = "local";
     localStorageDir = inputs.self + "/secrets/rekeyed/${config.networking.hostName}";
   };
