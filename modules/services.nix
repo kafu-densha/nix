@@ -46,21 +46,11 @@
       enable = true;
       dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
-
     };
   };
   users.users.elenah = {
     extraGroups = [ "podman" ];
     linger = true;
-  };
-  systemd.user.services.podman-restart = {
-    enable = true;
-    wantedBy = [ "default.target" ];
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
-    serviceConfig = {
-      RemainAfterExit = true;
-    };
   };
 
   services.fail2ban.enable = true;
