@@ -11,9 +11,6 @@ let
 in
 {
   imports = [
-    ../../modules/secrets.nix
-    ../../modules/pkgs-config.nix
-    ../../modules/direnv.nix
     ./restic/default.nix
   ];
 

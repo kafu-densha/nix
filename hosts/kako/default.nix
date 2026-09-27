@@ -9,9 +9,9 @@
     ./disks.nix
     ./networking.nix
     ./services.nix
-    ../../modules/default.nix
-    ../../modules/no-gui.nix
   ];
+
+  no-gui.enable = true;
 
   # Enable QEMU guest agent for Oracle Cloud
   services.qemuGuest.enable = true;

@@ -8,9 +8,9 @@
     ./hardware.nix
     ./networking.nix
     ./services.nix
-    ../../modules/default.nix
-    ../../modules/no-gui.nix
   ];
+
+  no-gui.enable = true;
 
   # Enable QEMU guest agent for Proxmox
   services.qemuGuest.enable = true;

@@ -19,7 +19,7 @@ in
       owner = "vaultwarden";
       group = "vaultwarden";
       mode = "600";
-      rekeyFile = ../secrets/master-keyed/vaultwarden-env-file.age;
+      rekeyFile = ../../secrets/master-keyed/vaultwarden-env-file.age;
     };
 
     services.vaultwarden = {
