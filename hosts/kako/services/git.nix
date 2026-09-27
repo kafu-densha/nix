@@ -26,22 +26,19 @@ in
         DOMAIN = publicURL;
         ROOT_URL = "https://${srv.DOMAIN}/";
         HTTP_PORT = 3000;
+        SSH_PORT = lib.head config.services.openssh.ports;
       };
-      service.DISABLE_REGISTRATION = true;
-      server.SSH_PORT = lib.head config.services.openssh.ports;
+      service = {
+        DISABLE_REGISTRATION = false;
+        ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
+        SHOW_REGISTRATION_BUTTON = false;
+        ENABLE_INTERNAL_SIGNIN = false;
+      };
+      oauth2_client = {
+        OPENID_CONNECT_SCOPES = "email profile";
+      };
     };
   };
-  systemd.services.forgejo.preStart =
-    let
-      adminCmd = "${lib.getExe cfg.package} admin user";
-      pwd = config.age.secrets.forgejo-admin-password;
-      user = "elenah";
-    in
-    ''
-      ${adminCmd} create --admin --email "root@localhost" --username ${user} --password "$(tr -d '\n' < ${pwd.path})" || true
-      ## uncomment this line to change an admin user which was already created
-      # ${adminCmd} change-password --username ${user} --password "$(tr -d '\n' < ${pwd.path})" || true
-    ''; # source: https://wiki.nixos.org/wiki/Forgejo#Ensure_users
 
   # NGINX config
   services.nginx.virtualHosts."${publicURL}" = {

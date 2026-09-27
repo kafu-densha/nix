@@ -11,6 +11,8 @@ let
   publicURL = "idm.${rootDomain}";
   services = [
     "vaultwarden"
+    "grafana"
+    "forgejo"
   ];
   certDir = config.security.acme.certs."${rootDomain}".directory;
 in
@@ -51,9 +53,12 @@ in
       };
       provision = {
         enable = true;
-        groups.users.members = [ "elenah" ];
+        groups = {
+          users.members = [ "elenah" ];
+          service_admin.members = [ "elenah" ];
+        };
         persons.elenah = {
-          displayName = "Elena";
+          displayName = "Elena Haug";
           mailAddresses = [ "elena@elena.sh" ];
         };
         systems.oauth2 = {
@@ -66,6 +71,34 @@ in
               "openid"
               "email"
               "profile"
+            ];
+          };
+          grafana = {
+            displayName = "Grafana";
+            originUrl = "https://grafana.${rootDomain}/login/generic_oauth";
+            originLanding = "https://grafana.${rootDomain}";
+            basicSecretFile = config.age.secrets.service-grafana-secret.path;
+            scopeMaps."users" = [
+              "openid"
+              "email"
+              "profile"
+              "groups"
+            ];
+            claimMaps."grafana_role".valuesByGroup = {
+              users = [ "Viewer" ];
+              service_admin = [ "GrafanaAdmin" ];
+            };
+          };
+          forgejo = {
+            displayName = "Forgejo";
+            originUrl = "https://git.${rootDomain}/user/oauth2/Kanidm/callback";
+            originLanding = "https://git.${rootDomain}";
+            basicSecretFile = config.age.secrets.service-forgejo-secret.path;
+            scopeMaps."users" = [
+              "openid"
+              "email"
+              "profile"
+              "groups"
             ];
           };
         };
