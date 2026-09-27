@@ -6,6 +6,7 @@ systems = [
 
 include = [
   "devShells.*.default",
+  "devShells.*.deploy",
   "formatter.*",
   "checks.*",
   "nixosConfigurations.*",

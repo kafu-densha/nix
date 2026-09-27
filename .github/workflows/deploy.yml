@@ -67,12 +67,12 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
             echo "auto deploy..."
-            nix develop -c colmena apply
+            nix develop .#deploy -c colmena apply
           elif [ "${{ github.event.inputs.machines }}" == "" ]; then
             echo "manual deploy (all machines)..."
-            nix develop -c colmena apply ${{ github.event.inputs.method }}
+            nix develop .#deploy -c colmena apply ${{ github.event.inputs.method }}
           else
             echo "manual deploy (specific machines)..."
-            nix develop -c colmena apply --on ${{ github.event.inputs.machines }} ${{ github.event.inputs.method }}
+            nix develop .#deploy -c colmena apply --on ${{ github.event.inputs.machines }} ${{ github.event.inputs.method }}
           fi
 

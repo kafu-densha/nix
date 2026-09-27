@@ -280,6 +280,10 @@
               colmena.packages.${system}.colmena
             ];
           };
+          deploy = pkgs.mkShell {
+            buildInputs = enabledPackages;
+            packages = [ colmena.packages.${system}.colmena ];
+          };
         }
       );
     };
