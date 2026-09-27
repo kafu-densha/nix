@@ -13,6 +13,7 @@ let
     "vaultwarden"
     "grafana"
     "forgejo"
+    "jellyfin"
   ];
   certDir = config.security.acme.certs."${rootDomain}".directory;
 in
@@ -99,6 +100,17 @@ in
               "email"
               "profile"
               "groups"
+            ];
+          };
+          jellyfin = {
+            displayName = "Jellyfin";
+            originUrl = "https://jellyfin.${rootDomain}/sso/OID/redirect/kanidm";
+            originLanding = "https://jellyfin.${rootDomain}";
+            basicSecretFile = config.age.secrets.service-jellyfin-secret.path;
+            scopeMaps."users" = [
+              "openid"
+              "email"
+              "profile"
             ];
           };
         };
