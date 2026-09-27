@@ -113,11 +113,22 @@
       ];
       pubkeys = yubikeys ++ other-keys;
 
-      forEachSystem = nixpkgs.lib.genAttrs (import systems);
+      forEachSystem = nixpkgs.lib.genAttrs (nixpkgs.lib.remove "x86_64-darwin" (import systems));
 
       ocfPkgs = import ocf-nix.inputs.nixpkgs {
         system = "x86_64-linux";
       };
+
+      allModules = (
+        with nixpkgs.lib; filter (hasSuffix ".nix") (filesystem.listFilesRecursive ./modules)
+      );
+      servicesModules = (
+        with nixpkgs.lib; filter (hasSuffix ".nix") (filesystem.listFilesRecursive ./modules/services)
+      );
+      commonModules = (nixpkgs.lib.subtractLists servicesModules allModules) ++ [
+        ./profiles/base.nix
+        ./profiles/essential.nix
+      ];
 
       hmOptions = hmConfig: {
         home-manager.useGlobalPkgs = true;
@@ -142,18 +153,22 @@
               self
               ;
           };
-          modules = [
-            ./hosts/${hostname}/default.nix
-            agenix.nixosModules.default
-            agenix-rekey.nixosModules.default
-            niks3.nixosModules.niks3
-            niks3.nixosModules.niks3-auto-upload
-            disko.nixosModules.disko
-            nix-index-database.nixosModules.default
-            home-manager.nixosModules.home-manager
-            (hmOptions hmConfig)
-          ]
-          ++ extraModules;
+          modules =
+            commonModules
+            ++ servicesModules
+            ++ [
+              ./profiles/system.nix
+              ./hosts/${hostname}/default.nix
+              agenix.nixosModules.default
+              agenix-rekey.nixosModules.default
+              niks3.nixosModules.niks3
+              niks3.nixosModules.niks3-auto-upload
+              disko.nixosModules.disko
+              nix-index-database.nixosModules.default
+              home-manager.nixosModules.home-manager
+              (hmOptions hmConfig)
+            ]
+            ++ extraModules;
         };
 
       nixosHosts = {
@@ -175,7 +190,7 @@
 
       darwinConfigurations.hikari = nix-darwin.lib.darwinSystem {
         specialArgs = { inherit inputs self; };
-        modules = [
+        modules = commonModules ++ [
           ./hosts/hikari/default.nix
           agenix.darwinModules.default
           agenix-rekey.darwinModules.default
@@ -188,6 +203,7 @@
       homeConfigurations."ocf-server" = ocf-home-manager.lib.homeManagerConfiguration {
         pkgs = ocfPkgs;
         modules = [
+          ./profiles/essential.nix
           ./home/default.nix
           ./hosts/ocf/server.nix
         ];
@@ -196,6 +212,7 @@
       homeConfigurations."ocf-desktop" = ocf-home-manager.lib.homeManagerConfiguration {
         pkgs = ocfPkgs;
         modules = [
+          ./profiles/essential.nix
           ./home/config.nix
           ./home/gui.nix
           ./hosts/ocf/desktop.nix

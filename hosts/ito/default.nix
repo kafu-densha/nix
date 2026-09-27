@@ -16,8 +16,6 @@
     ./tablet.nix
     ./vm.nix
     ./backup.nix
-    # ./remote-desktop.nix
-    ../../modules/default.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

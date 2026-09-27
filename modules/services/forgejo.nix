@@ -21,7 +21,7 @@ in
       owner = "forgejo";
       group = "forgejo";
       mode = "600";
-      rekeyFile = ../secrets/master-keyed/forgejo-admin-password.age;
+      rekeyFile = ../../secrets/master-keyed/forgejo-admin-password.age;
     };
 
     services.forgejo = {
