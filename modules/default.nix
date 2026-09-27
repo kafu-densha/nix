@@ -17,5 +17,6 @@
     ./vaultwarden.nix
     ./idm.nix
     ./jellyfin.nix
+    ./forgejo.nix
   ];
 }

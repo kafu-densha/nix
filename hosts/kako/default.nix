@@ -8,7 +8,7 @@
     ./hardware.nix
     ./disks.nix
     ./networking.nix
-    ./services/default.nix
+    ./services.nix
     ../../modules/default.nix
     ../../modules/no-gui.nix
   ];

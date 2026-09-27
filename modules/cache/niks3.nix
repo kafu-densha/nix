@@ -82,6 +82,8 @@ in
         };
       };
 
+      web.enable = lib.mkDefault true;
+
       services.nginx.virtualHosts.${cfg.publicURL} = {
         useACMEHost = rootDomain;
       };
