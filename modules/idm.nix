@@ -6,7 +6,7 @@
 }:
 
 let
-  cfg = config.oidc;
+  cfg = config.idm;
   rootDomain = config.web.rootDomain;
   publicURL = "idm.${rootDomain}";
   services = [
@@ -18,7 +18,7 @@ let
   certDir = config.security.acme.certs."${rootDomain}".directory;
 in
 {
-  options.oidc = {
+  options.idm = {
     enable = lib.mkEnableOption "oidc server";
   };
 

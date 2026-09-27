@@ -15,7 +15,7 @@
     ./oom.nix
     ./direnv.nix
     ./vaultwarden.nix
-    ./oidc.nix
+    ./idm.nix
     ./jellyfin.nix
   ];
 }

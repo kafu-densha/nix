@@ -4,5 +4,5 @@
 
 {
   vaultwarden.enable = true;
-  oidc.enable = true;
+  idm.enable = true;
 }
