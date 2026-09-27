@@ -18,9 +18,6 @@ in
 
   nixpkgs.config.permittedInsecurePackages = [ ];
 
-  # set nix version manually to avoid libgit2 issue
-  nix.package = pkgs.unstable.nix;
-
   # Binary cache
   nix.settings.substituters = [
     "https://cache.kafu.observer"
