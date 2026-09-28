@@ -54,5 +54,6 @@
     nix-tree
     lf
     hyfetch
+    caligula
   ];
 }
