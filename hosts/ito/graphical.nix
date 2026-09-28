@@ -199,9 +199,8 @@ in
     imagemagick
     sigil
     tor-browser
-    sublime
-    sublime-merge
     qpwgraph
+    sublime4
 
     # libreoffice
     libreoffice

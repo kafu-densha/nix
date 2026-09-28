@@ -16,7 +16,9 @@ in
   nixpkgs.overlays = [ unstable-packages ];
   nixpkgs.config.allowUnfree = true;
 
-  nixpkgs.config.permittedInsecurePackages = [ ];
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.1.1w" # for sublime4
+  ];
 
   nix.package = pkgs.nix;
 }
