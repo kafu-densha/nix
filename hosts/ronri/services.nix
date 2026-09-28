@@ -3,6 +3,9 @@
 }:
 
 {
-  vaultwarden.enable = true;
+  vaultwarden = {
+    enable = true;
+    backup = true;
+  };
   idm.enable = true;
 }
