@@ -41,6 +41,7 @@ in
           SSO_ONLY = true;
           SSO_AUTHORITY = "https://idm.${rootDomain}/oauth2/openid/vaultwarden";
           SSO_CLIENT_ID = "vaultwarden";
+          SSO_AUTH_ONLY_NOT_SESSION = true;
         };
       };
 
