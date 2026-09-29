@@ -63,14 +63,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
     };
-    ocf-nix.url = "github:ocf/nix";
-    ocf-home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "ocf-nix/nixpkgs";
-    };
-    ocf-firefox-addons = {
+    firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "ocf-nix/nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     git-worktree-scripts = {
       url = "github:tomups/worktrees-scripts";
@@ -93,9 +88,6 @@
       lanzaboote,
       aagl,
       niks3,
-      ocf-nix,
-      ocf-home-manager,
-      git-worktree-scripts,
       ...
     }@inputs:
     let
@@ -113,10 +105,6 @@
       pubkeys = yubikeys ++ other-keys;
 
       forEachSystem = nixpkgs.lib.genAttrs (nixpkgs.lib.remove "x86_64-darwin" (import systems));
-
-      ocfPkgs = import ocf-nix.inputs.nixpkgs {
-        system = "x86_64-linux";
-      };
 
       mkNixpkgsOverride =
         {
@@ -221,8 +209,8 @@
         ];
       };
 
-      homeConfigurations."ocf-server" = ocf-home-manager.lib.homeManagerConfiguration {
-        pkgs = ocfPkgs;
+      homeConfigurations."ocf-server" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
         modules = [
           ./profiles/essential.nix
           ./home/default.nix
@@ -230,8 +218,8 @@
         ];
         extraSpecialArgs = { inherit inputs; };
       };
-      homeConfigurations."ocf-desktop" = ocf-home-manager.lib.homeManagerConfiguration {
-        pkgs = ocfPkgs;
+      homeConfigurations."ocf-desktop" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
         modules = [
           ./profiles/essential.nix
           ./home/config.nix
