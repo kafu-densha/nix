@@ -40,4 +40,6 @@
   };
 
   forgejo.enable = true;
+
+  snikket.enable = true;
 }
