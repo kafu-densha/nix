@@ -129,10 +129,6 @@
     enable = true;
     enableZshIntegration = true;
   };
-  programs.pay-respects = {
-    enable = true;
-    enableZshIntegration = true;
-  };
 
   # SSH config
   programs.ssh = {
