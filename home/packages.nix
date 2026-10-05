@@ -33,7 +33,6 @@
     yubikey-manager
     yt-dlp
     inputs.tsexit.packages.${pkgs.stdenv.hostPlatform.system}.default
-    teleport.client
     ncdu
     nil
     nixd
