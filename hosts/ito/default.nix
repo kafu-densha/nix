@@ -1,6 +1,6 @@
 {
+  inputs,
   pkgs,
-  config,
   ...
 }:
 
@@ -8,7 +8,6 @@
   imports = [
     ./hardware.nix
     ./networking.nix
-    ./graphical.nix
     ./disks.nix
     ./nvidia.nix
     ./audio.nix
@@ -38,9 +37,6 @@
   };
   services.zfs.autoScrub.enable = true;
 
-  # yubikey support
-  services.pcscd.enable = true;
-
   # openrgb setup
   services.hardware.openrgb = {
     enable = true;
@@ -53,12 +49,6 @@
     "idle=nomwait"
   ];
 
-  # fix electron on wayland
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  # enable bluetooth
-  hardware.bluetooth.enable = true;
-
   # add udev rules for flashing qmk firmware
   services.udev.packages = [ pkgs.qmk-udev-rules ];
 
@@ -68,14 +58,47 @@
   # enable rasdaemon to monitor cpu crashes
   hardware.rasdaemon.enable = true;
 
-  # add wake-in script
-  environment.systemPackages = [
+  # Genshin (see https://github.com/ezKEa/aagl-gtk-on-nix)
+  nix.settings = inputs.aagl.nixConfig;
+  programs.anime-game-launcher.enable = true; # genshin
+  programs.sleepy-launcher.enable = true; # zzz
+
+  # Gaming
+  programs.steam = {
+    enable = true;
+    extraPackages = with pkgs; [
+      kdePackages.breeze # fix cursor theme
+    ];
+  };
+  environment.systemPackages = with pkgs; [
+    # Gaming
+    lutris
+    protonplus
+    prismlauncher
+    wineWow64Packages.stagingFull
+    winetricks
+    protontricks
+
+    # add wake-in script
     (pkgs.writeShellScriptBin "wake-in" ''
       sudo sh -c "echo 0 > /sys/class/rtc/rtc0/wakealarm"
       sudo sh -c "echo \`date '+%s' -d '+ $1'\` > /sys/class/rtc/rtc0/wakealarm"
       sudo systemctl suspend
     '')
   ];
+
+  # OBS
+  programs.obs-studio = {
+    enable = true;
+    enableVirtualCamera = true;
+    package = (
+      pkgs.obs-studio.override {
+        cudaSupport = true;
+      }
+    );
+  };
+
+  graphical.enable = true;
 
   jellyfin.enable = true;
 

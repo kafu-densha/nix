@@ -1,36 +1,16 @@
 {
-  pkgs,
-  lib,
   ...
 }:
 
-let
-  openssh-sk-standalone = import ./pkgs/openssh-sk-standalone.nix { inherit pkgs; };
-in
 {
   imports = [
     ../../home/default.nix
     ../../home/gui.nix
-    ./restic/home.nix
   ];
 
-  home.sessionPath = [
-    "/usr/local/bin"
-    "/Users/elenah/scripts"
-    "/Applications/Docker.app/Contents/Resources/bin/"
-  ];
-
-  home.shellAliases = {
-    tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
-    python = "python3";
-    newrepo = "gh repo create --private --source=. --remote=origin";
-    bu = "brew update && brew upgrade";
-    qr = "kiro-cli restart";
-    switch = "cd ~/.nixos && git pull && nh darwin switch && cd -";
+  # gnome theme
+  gtk = {
+    enable = true;
+    colorScheme = "dark";
   };
-
-  # add fido2 support for ssh
-  programs.ssh.extraConfig = ''
-    SecurityKeyProvider ${openssh-sk-standalone}/lib/sk-libfido2.dylib
-  '';
 }

@@ -1,0 +1,166 @@
+{
+  self,
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
+
+let
+  openssh-sk-standalone = import ./pkgs/openssh-sk-standalone.nix { inherit pkgs; };
+in
+{
+  imports = [
+    ./restic/default.nix
+  ];
+
+  users.users.elenah = {
+    name = "elenah";
+    home = "/Users/elenah";
+  };
+
+  programs.zsh = {
+    enable = true;
+    enableCompletion = false; # don't override home-manager completion
+  };
+
+  environment.systemPackages = with pkgs; [
+    # Nix related
+    nh
+    devenv
+
+    # Graphical
+    aseprite
+    cinny-desktop
+    aerospace
+    prismlauncher
+    postman
+    obsidian
+    notion-app
+    mos
+    halloy
+    google-chrome
+    jetbrains.pycharm
+    jetbrains.datagrip
+    jetbrains.rust-rover
+
+    # CLI
+    imagemagick
+    avrdude
+    epubcheck
+    prettier
+    pandoc
+    darwin.lsusb
+    coreutils-prefixed # replaces homebrew `coreutils`
+
+    # Cache
+    inputs.niks3.packages.${pkgs.stdenv.hostPlatform.system}.niks3
+
+    # enable openssh
+    openssh
+  ];
+
+  system.primaryUser = "elenah";
+
+  homebrew = {
+    enable = true;
+    enableZshIntegration = true;
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+    };
+    global.autoUpdate = false;
+    taps = [
+      "lajosdeme/utils"
+      "knazarov/qemu-virgl"
+    ];
+    brews = [
+      "lajosdeme/utils/xcclear"
+      "knazarov/qemu-virgl/qemu-virgl" # patched as shown here https://github.com/knazarov/homebrew-qemu-virgl/issues/83#issuecomment-1051147726
+      "mole"
+    ];
+    casks = [
+      "notunes"
+    ];
+  };
+
+  # allow touch-id sudo
+  security.pam.services.sudo_local = {
+    enable = true;
+    touchIdAuth = true;
+  };
+
+  # setup ssh agent
+  launchd.user.agents.ssh-agent = {
+    command = "${pkgs.openssh}/bin/ssh-agent -D -a /tmp/ssh-agent.socket -P ${openssh-sk-standalone}/lib/sk-libfido2.dylib";
+    serviceConfig.KeepAlive = true;
+    serviceConfig.RunAtLoad = true;
+    serviceConfig.EnvironmentVariables = {
+      SSH_ASKPASS = "/etc/ssh-askpass";
+      SSH_ASKPASS_REQUIRE = "prefer";
+      DISPLAY = ":0";
+    };
+  };
+  environment.variables.SSH_AUTH_SOCK = "/tmp/ssh-agent.socket";
+
+  # add yubikey
+  environment.etc."ssh-askpass".source = pkgs.writeScript "ssh-askpass" ''
+    #!/bin/bash
+    if echo "$1" | grep -q "PIN"; then
+      /usr/bin/osascript -e 'display dialog "'"$1"'" default answer "" with hidden answer' -e 'text returned of result'
+    else
+      echo ""
+    fi
+  '';
+
+  # setup nix helper
+  environment.variables.NH_FLAKE = "/Users/elenah/.nixos";
+
+  programs.nix-index-database.comma.enable = true;
+
+  # Necessary for using flakes on this system.
+  nix.settings.experimental-features = "nix-command flakes";
+
+  # enable linux-builder
+  nix.linux-builder = {
+    enable = false;
+    ephemeral = true;
+    maxJobs = 2;
+    config = {
+      virtualisation = {
+        darwin-builder = {
+          diskSize = 60 * 1024;
+          memorySize = 8 * 1024;
+        };
+        cores = 4;
+      };
+    };
+  };
+  nix.settings.trusted-users = [ "elenah" ];
+
+  networking.hostName = "hikari-darwin";
+  age.secrets.niks3-auth-token-client = {
+    owner = "elenah";
+    group = "staff";
+    rekeyFile = ../../secrets/master-keyed/niks3-auth-token.age;
+  };
+
+  environment.variables = {
+    NIKS3_SERVER_URL = "https://niks3.kafu.observer";
+    NIKS3_AUTH_TOKEN_FILE = config.age.secrets.niks3-auth-token-client.path;
+  };
+
+  # Set Git commit hash for darwin-version.
+  system.configurationRevision = self.rev or self.dirtyRev or null;
+
+  # Used for backwards compatibility, please read the changelog before changing.
+  # $ darwin-rebuild changelog
+  system.stateVersion = 6;
+
+  # auto garbage collect and optimise nix-store
+  nix.gc.automatic = true;
+  nix.optimise.automatic = true;
+
+  # The platform the configuration will be used on.
+  nixpkgs.hostPlatform = "aarch64-darwin";
+}

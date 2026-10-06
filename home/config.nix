@@ -87,7 +87,7 @@
 
     initContent = lib.mkMerge [
       (lib.mkBefore ''
-        fpath=("${pkgs.unstable.pure-prompt}/share/zsh/site-functions" $fpath)
+        fpath=("${pkgs.pure-prompt}/share/zsh/site-functions" $fpath)
 
         # show git stashes
         zstyle :prompt:pure:git:stash show yes

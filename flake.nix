@@ -2,8 +2,7 @@
   description = "NixOS flake for kafu-densha nix machines";
 
   inputs = {
-    nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst";
-    nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,7 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-index-database = {
@@ -21,7 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+      url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     colmena = {
@@ -43,7 +42,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     aagl = {
-      url = "github:ezKEa/aagl-gtk-on-nix/release-26.05";
+      url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {
@@ -59,7 +58,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-26.05";
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
     };
@@ -71,6 +70,10 @@
       url = "github:tomups/worktrees-scripts";
       flake = false;
     };
+    nixos-apple-silicon = {
+      url = "github:nix-community/nixos-apple-silicon";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -81,6 +84,7 @@
       agenix,
       agenix-rekey,
       home-manager,
+      nixvim,
       nix-index-database,
       nix-darwin,
       colmena,
@@ -88,6 +92,7 @@
       lanzaboote,
       aagl,
       niks3,
+      nixos-apple-silicon,
       ...
     }@inputs:
     let
@@ -96,11 +101,12 @@
         "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIPs3+fHihwZSBQVtoXffCtSSmBBDb/0NY+BPDIo+FKh9AAAABHNzaDo=" # backup yubikey
       ];
       other-keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ3SnQlFllOIBsQmgGB8owAyKviKNoRvleS/eIbK4/8B" # hikari
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ3SnQlFllOIBsQmgGB8owAyKviKNoRvleS/eIbK4/8B" # hikari-darwin
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPVa9eWADJr7DQf0c7xiJGl2+6KYF9LeGJUfSJj2mT/S" # ito
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICrnUA0gmnKiTLT079DSKTzCxUBV6bIkAIQhggzuOPo1" # kako
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMVCtRg036ANP+l/vmvzj6EJZL2Ic8s5y5tqyMoaOzrs" # ronri
         "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBF16Vm3gwviIP1dg/EAx1xxofFm8No8zN6UGYpEM4D72KusDFYwa2M4F+bvf+a0K01OJNNGUnsxFTyizQxwsPj4=" # phone
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPoHX+63bHZrZkXZEM7Kki6Xfd+kBvyPPehD2bP+DNE5" # hikari
       ];
       pubkeys = yubikeys ++ other-keys;
 
@@ -144,6 +150,7 @@
         home-manager.users.elenah = hmConfig;
         home-manager.backupFileExtension = "hm-backup";
         home-manager.extraSpecialArgs = { inherit inputs; };
+        home-manager.sharedModules = [ nixvim.homeModules.nixvim ];
       };
 
       mkConfiguration =
@@ -190,6 +197,12 @@
             aagl.nixosModules.default
           ];
         };
+        hikari = {
+          hmConfig = ./hosts/hikari/home.nix;
+          extraModules = [
+            nixos-apple-silicon.nixosModules.apple-silicon-support
+          ];
+        };
       };
     in
     {
@@ -200,12 +213,12 @@
       darwinConfigurations.hikari = nix-darwin.lib.darwinSystem {
         specialArgs = { inherit inputs self; };
         modules = commonModules ++ [
-          ./hosts/hikari/default.nix
+          ./hosts/hikari-darwin/default.nix
           agenix.darwinModules.default
           agenix-rekey.darwinModules.default
           nix-index-database.darwinModules.default
           home-manager.darwinModules.home-manager
-          (hmOptions ./hosts/hikari/home.nix)
+          (hmOptions ./hosts/hikari-darwin/home.nix)
         ];
       };
 
