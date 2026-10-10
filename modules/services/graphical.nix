@@ -224,6 +224,7 @@ in
       sigil
       qpwgraph
       sublime4
+      darktable
 
       # libreoffice
       libreoffice
