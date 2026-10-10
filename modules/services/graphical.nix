@@ -3,7 +3,6 @@
   inputs,
   lib,
   config,
-  mkNixpkgsOverride,
   ...
 }:
 
@@ -22,12 +21,6 @@ let
       ];
     })
   );
-
-  nixpkgs-545762 = mkNixpkgsOverride {
-    prNum = 545762;
-    hash = "sha256-f1cQGZgwUWOzFPB43v8N3/k/REzJ3t2coH1xA3iRTck=";
-    inherit pkgs;
-  };
 in
 {
   options.graphical = {
@@ -35,6 +28,25 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # overlay to fix copyous (see nixpkgs pr #545762)
+    nixpkgs.overlays = [
+      (self: super: {
+        gnomeExtensions = super.gnomeExtensions // {
+          copyous = super.gnomeExtensions.copyous.overrideAttrs (oldAttrs: {
+            buildInputs = (builtins.filter (p: p.pname or "" != "libgda6") (oldAttrs.buildInputs or [ ])) ++ [
+              self.libgda5
+            ];
+            preInstall = ''
+              sed -i "1i import GIRepository from 'gi://GIRepository';\nGIRepository.Repository.dup_default().prepend_search_path('${self.libgda5}/lib/girepository-1.0');\nGIRepository.Repository.dup_default().prepend_search_path('${super.gsound}/lib/girepository-1.0');\n" lib/preferences/dependencies/dependencies.js
+              sed -i "1i import GIRepository from 'gi://GIRepository';\nGIRepository.Repository.dup_default().prepend_search_path('${self.libgda5}/lib/girepository-1.0');\n" lib/database/entryTracker.js
+              sed -i "1i import GIRepository from 'gi://GIRepository';\nGIRepository.Repository.dup_default().prepend_search_path('${super.gsound}/lib/girepository-1.0');\n" lib/common/sound.js
+              sed -i "1i import GIRepository from 'gi://GIRepository';\nGIRepository.Repository.dup_default().prepend_search_path('${super.gsound}/lib/girepository-1.0');\n" lib/preferences/general/feedbackSettings.js
+            '';
+          });
+        };
+      })
+    ];
+
     # fix electron on wayland
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -69,7 +81,7 @@ in
               paperwm-patched.extensionUuid
               blur-my-shell.extensionUuid
               brightness-control-using-ddcutil.extensionUuid
-              nixpkgs-545762.gnomeExtensions.copyous.extensionUuid
+              copyous.extensionUuid
             ];
             favorite-apps = [
               "zen.desktop"
@@ -178,7 +190,7 @@ in
       gnomeExtensions.blur-my-shell
       gnomeExtensions.brightness-control-using-ddcutil
       ddcutil
-      nixpkgs-545762.gnomeExtensions.copyous
+      gnomeExtensions.copyous
 
       # qt theming
       qadwaitadecorations

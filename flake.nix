@@ -112,27 +112,6 @@
 
       forEachSystem = nixpkgs.lib.genAttrs (nixpkgs.lib.remove "x86_64-darwin" (import systems));
 
-      mkNixpkgsOverride =
-        {
-          prNum,
-          hash,
-          pkgs,
-        }:
-        import
-          (pkgs.applyPatches {
-            src = pkgs.path;
-            patches = [
-              (pkgs.fetchpatch2 {
-                url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/${toString prNum}.patch";
-                inherit hash;
-              })
-            ];
-          })
-          {
-            inherit (pkgs.stdenv) system;
-            inherit (pkgs) config;
-          };
-
       allModules = (
         with nixpkgs.lib; filter (hasSuffix ".nix") (filesystem.listFilesRecursive ./modules)
       );
@@ -165,7 +144,6 @@
               inputs
               pubkeys
               yubikeys
-              mkNixpkgsOverride
               self
               ;
           };
