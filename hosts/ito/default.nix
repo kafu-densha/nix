@@ -12,7 +12,6 @@
     ./nvidia.nix
     ./audio.nix
     ./boot.nix
-    ./tablet.nix
     ./vm.nix
     ./backup.nix
   ];
@@ -101,6 +100,8 @@
   graphical.enable = true;
 
   jellyfin.enable = true;
+
+  hardware.opentabletdriver.enable = true;
 
   system.stateVersion = "25.11";
 }
