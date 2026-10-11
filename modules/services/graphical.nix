@@ -127,6 +127,11 @@ in
             show-workspace-indicator = false; # show workspace pill indicator
             selection-border-radius-top = lib.gvariant.mkInt32 12;
             selection-border-radius-bottom = lib.gvariant.mkInt32 12;
+            selection-border-size = lib.gvariant.mkInt32 8;
+            window-gap = lib.gvariant.mkInt32 10;
+            horizontal-margin = lib.gvariant.mkInt32 10;
+            vertical-margin = lib.gvariant.mkInt32 10;
+            vertical-margin-bottom = lib.gvariant.mkInt32 10;
           };
           "org/gnome/nautilus/preferences" = {
             default-folder-viewer = "list-view";
