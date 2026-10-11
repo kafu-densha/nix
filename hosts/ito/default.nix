@@ -14,6 +14,7 @@
     ./boot.nix
     ./vm.nix
     ./backup.nix
+    ./nfs.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

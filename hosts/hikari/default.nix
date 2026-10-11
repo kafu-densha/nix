@@ -32,5 +32,41 @@
 
   graphical.enable = true;
 
+  # mount nfs
+  fileSystems = lib.mkMerge [
+    {
+      "/data" = {
+        device = "ito:/export";
+        fsType = "nfs";
+        options = [
+          "nfsvers=4.2"
+          "x-systemd.automount"
+          "noauto"
+        ];
+      };
+    }
+    (builtins.listToAttrs (
+      map
+        (dataset: {
+          name = "/data/${dataset}";
+          value = {
+            device = "ito:/export/${dataset}";
+            fsType = "nfs";
+            options = [
+              "nfsvers=4.2"
+              "x-systemd.automount"
+              "noauto"
+            ];
+          };
+        })
+        [
+          "backups"
+          "games"
+          "media"
+          "misc"
+        ]
+    ))
+  ];
+
   system.stateVersion = "26.11";
 }
