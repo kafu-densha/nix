@@ -229,7 +229,15 @@ in
       sigil
       qpwgraph
       sublime4
-      darktable
+      (darktable.overrideAttrs (oldAttrs: {
+        cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [
+          "-DUSE_AI=ON" # enable darktable ai denoise
+        ];
+        buildInputs = (oldAttrs.buildInputs or [ ]) ++ [
+          onnxruntime # required to be present during build
+          libarchive
+        ];
+      }))
 
       # libreoffice
       libreoffice

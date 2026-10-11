@@ -16,6 +16,7 @@
     cudaPackages.cudatoolkit
     nvidia-container-toolkit
     nvidia-docker
+    onnxruntime
   ];
 
   hardware.nvidia-container-toolkit.enable = true;
