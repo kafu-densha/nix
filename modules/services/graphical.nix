@@ -21,6 +21,10 @@ let
       ];
     })
   );
+
+  text-scaling-factor = lib.gvariant.mkDouble (
+    if (config.networking.hostName == "hikari") then 0.90 else 1.00
+  );
 in
 {
   options.graphical = {
@@ -77,12 +81,19 @@ in
         settings = {
           "org/gnome/shell" = {
             disable-user-extensions = false;
-            enabled-extensions = with pkgs.gnomeExtensions; [
-              paperwm-patched.extensionUuid
-              blur-my-shell.extensionUuid
-              brightness-control-using-ddcutil.extensionUuid
-              copyous.extensionUuid
-            ];
+            enabled-extensions =
+              with pkgs.gnomeExtensions;
+              [
+                paperwm-patched.extensionUuid
+                blur-my-shell.extensionUuid
+                copyous.extensionUuid
+              ]
+              ++ (lib.optionals (config.networking.hostName == "ito") [
+                brightness-control-using-ddcutil.extensionUuid
+              ])
+              ++ (lib.optionals (config.networking.hostName == "hikari") [
+                just-perfection.extensionUuid
+              ]);
             favorite-apps = [
               "zen.desktop"
               "dev.zed.Zed.desktop"
@@ -95,6 +106,7 @@ in
             clock-format = "12h";
             clock-show-weekday = true;
             clock-show-seconds = true;
+            inherit text-scaling-factor;
           };
           "org/gnome/desktop/calendar".show-weekdate = true; # add week numbers in calendar
           "org/gnome/desktop/background" = {
@@ -171,6 +183,11 @@ in
             "link-item/link-preview-orientation" = "horizontal";
             show-header = false;
           };
+          "org/gnome/shell/extensions/just-perfection" = {
+            # don't have clock covered by notch on hikari
+            clock-menu-position = lib.gvariant.mkInt32 2;
+            clock-menu-position-offset = lib.gvariant.mkInt32 20;
+          };
         };
       }
     ];
@@ -196,6 +213,7 @@ in
       gnomeExtensions.brightness-control-using-ddcutil
       ddcutil
       gnomeExtensions.copyous
+      gnomeExtensions.just-perfection
 
       # qt theming
       qadwaitadecorations

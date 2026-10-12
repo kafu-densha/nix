@@ -11,10 +11,18 @@
   hardware.asahi = {
     enable = true;
     peripheralFirmwareDirectory = ./firmware;
+    avd = {
+      enable = true;
+      vaapi-support = true;
+    };
   };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
+
+  boot.kernelParams = [ "appledrm.show_notch=1" ]; # show notch
+
+  zramSwap.enable = true;
 
   networking.hostName = "hikari";
 
