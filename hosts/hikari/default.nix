@@ -53,5 +53,7 @@
     };
   };
 
+  services.fail2ban.enable = lib.mkForce false;
+
   system.stateVersion = "26.11";
 }
