@@ -9,6 +9,7 @@ let
     "games"
     "media"
     "misc"
+    "photography"
   ];
 in
 {
