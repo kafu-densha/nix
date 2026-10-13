@@ -256,6 +256,7 @@ in
           libarchive
         ];
       }))
+      prismlauncher
 
       # libreoffice
       libreoffice
