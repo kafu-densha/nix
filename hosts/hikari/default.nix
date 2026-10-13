@@ -6,6 +6,7 @@
 {
   imports = [
     ./hardware.nix
+    ./trackpad.nix
   ];
 
   hardware.asahi = {
