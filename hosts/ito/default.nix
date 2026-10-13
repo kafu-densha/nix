@@ -78,6 +78,8 @@
     winetricks
     protontricks
 
+    apfs-fuse
+
     # add wake-in script
     (pkgs.writeShellScriptBin "wake-in" ''
       sudo sh -c "echo 0 > /sys/class/rtc/rtc0/wakealarm"
