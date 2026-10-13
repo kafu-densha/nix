@@ -257,6 +257,7 @@ in
         ];
       }))
       prismlauncher
+      wl-clipboard
 
       # libreoffice
       libreoffice
