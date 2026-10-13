@@ -38,6 +38,9 @@ in
   systemd.services.titdb = {
     description = "trackpad-is-too-damn-big";
     wantedBy = [ "multi-user.target" ];
-    serviceConfig.ExecStart = "${lib.getExe titdb} -d /dev/input/by-path/platform-39b10c000.spi-cs-0-event-mouse";
+    serviceConfig = {
+      Restart = "always";
+      ExecStart = "${lib.getExe titdb} -d /dev/input/by-path/platform-39b10c000.spi-cs-0-event-mouse";
+    };
   };
 }
