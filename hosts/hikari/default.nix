@@ -23,6 +23,8 @@
 
   boot.kernelParams = [ "appledrm.show_notch=1" ]; # show notch
 
+  boot.supportedFilesystems = [ "zfs" ]; # enable zfs support
+
   zramSwap.enable = true;
 
   networking.hostName = "hikari";
@@ -33,6 +35,7 @@
       enable = lib.mkForce false;
       iwd.enable = true;
     };
+    hostId = "a1f88db0";
   };
 
   nixpkgs.config.allowUnsupportedSystem = true;
