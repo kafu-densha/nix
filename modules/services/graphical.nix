@@ -60,6 +60,9 @@ in
     # yubikey support
     services.pcscd.enable = true;
 
+    # custom ssh askpass
+    ssh-askpass.enable = true;
+
     # gnome
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;
