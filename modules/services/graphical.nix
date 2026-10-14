@@ -261,6 +261,7 @@ in
       }))
       prismlauncher
       wl-clipboard
+      yubioath-flutter
 
       # libreoffice
       libreoffice
