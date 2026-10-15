@@ -136,6 +136,10 @@ in
                 "mozc-jp"
               ])
             ];
+            xkb-options = [
+              "terminate:ctrl_alt_bksp" # not sure what this is
+              "japan:kana_lock" # type with kana by default
+            ];
           };
           "org/gnome/desktop/wm/preferences".resize-with-right-button = true;
           "org/gnome/shell/extensions/paperwm" = {
