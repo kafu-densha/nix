@@ -71,7 +71,7 @@
       flake = false;
     };
     nixos-apple-silicon = {
-      url = "github:nix-community/nixos-apple-silicon";
+      url = "github:nix-community/nixos-apple-silicon/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
