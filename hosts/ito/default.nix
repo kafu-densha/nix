@@ -1,5 +1,5 @@
 {
-  inputs,
+  config,
   pkgs,
   ...
 }:
@@ -59,7 +59,10 @@
   hardware.rasdaemon.enable = true;
 
   # Genshin (see https://github.com/ezKEa/aagl-gtk-on-nix)
-  nix.settings = inputs.aagl.nixConfig;
+  nix.settings.substituters = [ "https://ezkea.cachix.org" ];
+  nix.settings.trusted-public-keys = [
+    "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
+  ];
   programs.anime-game-launcher.enable = true; # genshin
   programs.sleepy-launcher.enable = true; # zzz
 
@@ -104,6 +107,10 @@
   jellyfin.enable = true;
 
   hardware.opentabletdriver.enable = true;
+
+  # allow cross-platform building for aarch64-linux
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
 
   system.stateVersion = "25.11";
 }
