@@ -17,3 +17,4 @@ concurrency:
 jobs:
   Atelier:
     uses: stepbrobd/atelier/.github/workflows/discover.yaml@master
+
