@@ -59,20 +59,6 @@
 
   services.fail2ban.enable = lib.mkForce false;
 
-  # patch mutter to enable nightlight, see https://gitlab.gnome.org/GNOME/mutter/-/work_items/2318
-  nixpkgs.overlays = [
-    (final: prev: {
-      mutter = prev.mutter.overrideAttrs (oldAttrs: {
-        patches = (oldAttrs.patches or [ ]) ++ [
-          (final.fetchpatch2 {
-            url = "https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5205.patch";
-            hash = "sha256-pSgFRBQz8x+L9MVkWpfuIx0ydIgRxb8jcfNQjhGWwUQ=";
-          })
-        ];
-      });
-    })
-  ];
-
   # battery saving
   boot.kernel.sysctl = {
     "kernel.nmi_watchdog" = 0;
