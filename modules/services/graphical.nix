@@ -241,7 +241,12 @@ in
       google-chrome
       osu-lazer
       signal-desktop
-      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+      (inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+        extraPolicies = {
+          DisableAppUpdate = true;
+          DisableTelemetry = true;
+        };
+      })
       jellyfin-desktop
       transmission_4-gtk
       gimp
