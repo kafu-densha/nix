@@ -206,6 +206,7 @@
           ./profiles/essential.nix
           ./home/default.nix
           ./hosts/ocf/server.nix
+          nixvim.homeModules.nixvim
         ];
         extraSpecialArgs = { inherit inputs; };
       };
@@ -216,6 +217,7 @@
           ./home/config.nix
           ./home/gui.nix
           ./hosts/ocf/desktop.nix
+          nixvim.homeModules.nixvim
         ];
         extraSpecialArgs = { inherit inputs; };
       };

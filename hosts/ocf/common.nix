@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }:
@@ -26,6 +27,8 @@
     PURE_GIT_PULL = "0"; # prevent pure from querying git repo status (prompts yubikey)
     # SSH_ASKPASS = "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass";
   };
+
+  nix.package = pkgs.nix;
 
   nix.settings.substituters = lib.mkForce [
     "https://cache.nixos.org"
