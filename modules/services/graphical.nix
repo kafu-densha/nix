@@ -98,7 +98,7 @@ in
                 just-perfection.extensionUuid
               ]);
             favorite-apps = [
-              "zen.desktop"
+              "zen-beta.desktop"
               "dev.zed.Zed.desktop"
               "org.gnome.Nautilus.desktop"
               "org.wezfurlong.wezterm.desktop"
