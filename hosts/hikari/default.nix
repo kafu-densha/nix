@@ -63,7 +63,7 @@
   nixpkgs.overlays = [
     (final: prev: {
       mutter = prev.mutter.overrideAttrs (oldAttrs: {
-        patches = (oldAttrs.patches or [ ]) ++ [
+        patches = [
           (final.fetchpatch2 {
             url = "https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5205.patch";
             hash = "sha256-pSgFRBQz8x+L9MVkWpfuIx0ydIgRxb8jcfNQjhGWwUQ=";
