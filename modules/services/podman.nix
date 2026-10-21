@@ -14,10 +14,7 @@ in
 
   config = lib.mkIf cfg.enable {
     virtualisation = {
-      containers = {
-        enable = true;
-        registries.search = [ "docker.io" ];
-      };
+      containers.enable = true;
       podman = {
         enable = true;
         dockerCompat = true;
