@@ -567,6 +567,19 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst"
       }
     },
+    "nixpkgs-small": {
+      "locked": {
+        "lastModified": 1792617723,
+        "narHash": "sha256-uadOcEjBlUHlt0F4Mzw3x8XnpFxH/KK0MXYPJnMz1SM=",
+        "rev": "dce1caf58d1a943af38b376e824a0d036ec3eea7",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/unstable-small/nixos-26.11pre1098928.dce1caf58d1a/nixexprs.tar.zst"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-unstable-small/nixexprs.tar.zst"
+      }
+    },
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -653,6 +666,7 @@
         "nix-index-database": "nix-index-database",
         "nixos-apple-silicon": "nixos-apple-silicon",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-small": "nixpkgs-small",
         "nixvim": "nixvim",
         "systems": "systems_2",
         "tsexit": "tsexit",

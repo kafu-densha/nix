@@ -73,8 +73,12 @@ in
     i18n.inputMethod = {
       enable = true;
       type = "ibus";
-      ibus.engines = with pkgs.ibus-engines; [
-        mozc
+      ibus.engines = [
+        # FIXME: patch mozc to fix https://github.com/NixOS/nixpkgs/issues/576522
+        #        remove when NixOS/Nixpkgs#531687 reaches unstable
+        (import inputs.nixpkgs-small {
+          inherit (pkgs.stdenv.hostPlatform) system;
+        }).ibus-engines.mozc
       ];
     };
     # environment.sessionVariables.GTK_THEME = "Adwaita:dark";
