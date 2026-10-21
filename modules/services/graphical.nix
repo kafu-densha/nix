@@ -68,7 +68,7 @@ in
     services.desktopManager.gnome.enable = true;
     services.xserver.enable = true;
     services.gnome.gcr-ssh-agent.enable = lib.mkForce false;
-    systemd.services.power-profiles-daemon.enable = true;
+    services.power-profiles-daemon.enable = false;
     environment.gnome.excludePackages = with pkgs; [ gnome-tour ];
     i18n.inputMethod = {
       enable = true;
