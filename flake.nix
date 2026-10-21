@@ -3,6 +3,14 @@
 
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
+    nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
+
+    # FIXME: patch mozc to fix https://github.com/NixOS/nixpkgs/issues/576522
+    nixpkgs-patch-mozc = {
+      url = "https://github.com/NixOS/nixpkgs/pull/531687.diff";
+      flake = false;
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -89,6 +97,7 @@
       aagl,
       niks3,
       nixos-apple-silicon,
+      nixpkgs-patcher,
       ...
     }@inputs:
     let
@@ -134,13 +143,14 @@
           hmConfig ? ./home/default.nix,
           extraModules ? [ ],
         }:
-        nixpkgs.lib.nixosSystem {
+        nixpkgs-patcher.lib.nixosSystem {
           specialArgs = {
             inherit
               inputs
               pubkeys
               yubikeys
               self
+              nixpkgs
               ;
           };
           modules =

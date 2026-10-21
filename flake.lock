@@ -567,6 +567,33 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst"
       }
     },
+    "nixpkgs-patch-mozc": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-95v5xQ5O1lKlX+APhkqObS12+YVQ6EITmG4jtbNqvEM=",
+        "type": "file",
+        "url": "https://github.com/NixOS/nixpkgs/pull/531687.diff"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/NixOS/nixpkgs/pull/531687.diff"
+      }
+    },
+    "nixpkgs-patcher": {
+      "locked": {
+        "lastModified": 1789143781,
+        "narHash": "sha256-WFr3wYdhSEJd/nQyJuETd6dcS08Exc+qoZWJ2tHM/gg=",
+        "owner": "gepbird",
+        "repo": "nixpkgs-patcher",
+        "rev": "da7c09e478f552c3a9ebb78b2f68426c1855fd81",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gepbird",
+        "repo": "nixpkgs-patcher",
+        "type": "github"
+      }
+    },
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -653,6 +680,8 @@
         "nix-index-database": "nix-index-database",
         "nixos-apple-silicon": "nixos-apple-silicon",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-patch-mozc": "nixpkgs-patch-mozc",
+        "nixpkgs-patcher": "nixpkgs-patcher",
         "nixvim": "nixvim",
         "systems": "systems_2",
         "tsexit": "tsexit",
