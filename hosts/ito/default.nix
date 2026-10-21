@@ -102,6 +102,22 @@
     );
   };
 
+  # fix for v4l2loopback conflicting kernel module
+  # FIXME: temp fix below: https://github.com/NixOS/nixpkgs/issues/576406#issuecomment-6309178991
+  boot.extraModulePackages =
+    let
+      v4l2loopback-workaround = pkgs.runCommand "v4l2loopback-workaround" { } ''
+        subdir=lib/modules/${config.boot.kernelPackages.kernel.version}
+        mkdir -p $out/$subdir
+        cd ${config.boot.kernelPackages.v4l2loopback}
+        for f in *; do
+          if [[ $f =~ ^modules ]]; then continue; fi
+          cp -r $f $out/$subdir/$f
+        done
+      '';
+    in
+    [ v4l2loopback-workaround ];
+
   graphical.enable = true;
 
   jellyfin.enable = true;
