@@ -21,7 +21,7 @@ let
     };
 
     nativeBuildInputs = with pkgs; [
-      zig
+      zig_0_16.hook
       wrapGAppsHook4
       pkg-config
     ];
