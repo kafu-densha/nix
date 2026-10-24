@@ -117,7 +117,10 @@
     }
   );
 
-  graphical.enable = true;
+  graphical = {
+    enable = true;
+    gnome.enable = true;
+  };
 
   jellyfin.enable = true;
 
