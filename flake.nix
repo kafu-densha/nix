@@ -72,6 +72,10 @@
       url = "github:nix-community/nixos-apple-silicon/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    wallpaper = {
+      url = "https://storage.kafu.observer/wallpapers/kafu.png";
+      flake = false;
+    };
   };
 
   outputs =
