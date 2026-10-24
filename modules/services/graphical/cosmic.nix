@@ -11,5 +11,6 @@ in
   config = lib.mkIf (cfg.enable && cfg.cosmic.enable) {
     services.displayManager.cosmic-greeter.enable = true;
     services.desktopManager.cosmic.enable = true;
+    services.gnome.gcr-ssh-agent.enable = lib.mkForce false;
   };
 }
