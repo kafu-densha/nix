@@ -9,11 +9,6 @@
 let
   cfg = config.graphical;
 
-  wallpaper = pkgs.fetchurl {
-    url = "https://storage.kafu.observer/wallpapers/kafu.png";
-    sha256 = "14bq4rna783jy0flmsm8g0ik64d100acr8j11rnq7s8nlnz5jbhs";
-  };
-
   paperwm-patched = (
     pkgs.gnomeExtensions.paperwm.overrideAttrs (prevAttrs: {
       patches = (prevAttrs.patches or [ ]) ++ [
@@ -101,8 +96,8 @@ in
           "org/gnome/desktop/background" = {
             color-shading-type = "solid";
             picture-options = "zoom";
-            picture-uri = "file://" + wallpaper;
-            picture-uri-dark = "file://" + wallpaper;
+            picture-uri = "file://" + inputs.wallpaper;
+            picture-uri-dark = "file://" + inputs.wallpaper;
           };
           "org/gnome/settings-daemon/plugins/color" = {
             night-light-enabled = true;

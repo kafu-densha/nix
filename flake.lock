@@ -670,6 +670,7 @@
         "nixvim": "nixvim",
         "systems": "systems_2",
         "tsexit": "tsexit",
+        "wallpaper": "wallpaper",
         "zen-browser": "zen-browser"
       }
     },
@@ -821,6 +822,18 @@
         "owner": "bnh440",
         "repo": "tsexit",
         "type": "github"
+      }
+    },
+    "wallpaper": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-UL7Ty0pLIHng5wSHYo9IHbvqddxvd3jS7P3kv6k32FU=",
+        "type": "file",
+        "url": "https://storage.kafu.observer/wallpapers/kafu.png"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://storage.kafu.observer/wallpapers/kafu.png"
       }
     },
     "zen-browser": {
