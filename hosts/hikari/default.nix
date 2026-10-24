@@ -56,6 +56,7 @@
         "nfsvers=4.2"
         "x-systemd.automount"
         "noauto"
+        "_netdev"
       ];
     };
   };
