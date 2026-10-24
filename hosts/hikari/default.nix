@@ -42,7 +42,10 @@
 
   stats.enable = false;
 
-  graphical.enable = true;
+  graphical = {
+    enable = true;
+    cosmic.enable = true;
+  };
 
   # mount nfs
   fileSystems = {
