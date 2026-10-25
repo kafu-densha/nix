@@ -38,6 +38,8 @@
     hostId = "a1f88db0";
   };
 
+  services.niks3-auto-upload.enable = lib.mkForce false;
+
   nixpkgs.config.allowUnsupportedSystem = true;
 
   stats.enable = false;
