@@ -57,6 +57,8 @@
       options = [
         "nfsvers=4.2"
         "x-systemd.automount"
+        "x-systemd.idle-timeout=60" # unmount after 60 seconds of inactivity
+        "noatime"
         "noauto"
         "_netdev"
       ];
