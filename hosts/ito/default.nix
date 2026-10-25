@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   pkgs,
   ...
 }:
@@ -102,20 +101,6 @@
       }
     );
   };
-
-  # FIXME: fix kernel module conflict with v4l2loopback
-  #        remove when NixOS/nixpkgs#575861 reaches unstable
-  boot.kernelPackages = pkgs.linuxPackages.extend (
-    _: prev: {
-      v4l2loopback = prev.v4l2loopback.overrideAttrs {
-        preBuild = "";
-        installFlags = [
-          "DEPMOD=true"
-          "INSTALL_MOD_PATH=${placeholder "out"}"
-        ];
-      };
-    }
-  );
 
   graphical = {
     enable = true;
