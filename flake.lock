@@ -92,6 +92,27 @@
         "type": "github"
       }
     },
+    "cosmic-nightlight": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792804691,
+        "narHash": "sha256-B+n0kP7vgKkF/qO8T4DzDQcRXLDr/mAtBa5uRuaBFq0=",
+        "owner": "cosmic-nightlight",
+        "repo": "cosmic-nightlight",
+        "rev": "b8ce743c4f26e21f67df6e266bcc6bb38753145e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cosmic-nightlight",
+        "ref": "nightly",
+        "repo": "cosmic-nightlight",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1781825982,
@@ -643,6 +664,7 @@
         "agenix": "agenix",
         "agenix-rekey": "agenix-rekey",
         "colmena": "colmena",
+        "cosmic-nightlight": "cosmic-nightlight",
         "disko": "disko",
         "git-hooks": "git-hooks",
         "git-worktree-scripts": "git-worktree-scripts",

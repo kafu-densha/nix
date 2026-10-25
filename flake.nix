@@ -74,6 +74,10 @@
       url = "https://storage.kafu.observer/wallpapers/kafu.png";
       flake = false;
     };
+    cosmic-nightlight = {
+      url = "github:cosmic-nightlight/cosmic-nightlight/nightly";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -93,6 +97,7 @@
       aagl,
       niks3,
       nixos-apple-silicon,
+      cosmic-nightlight,
       ...
     }@inputs:
     let
@@ -179,6 +184,7 @@
           hmConfig = ./hosts/hikari/home.nix;
           extraModules = [
             nixos-apple-silicon.nixosModules.apple-silicon-support
+            cosmic-nightlight.nixosModules.default
           ];
         };
       };

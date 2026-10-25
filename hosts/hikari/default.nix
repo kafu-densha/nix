@@ -48,6 +48,7 @@
     enable = true;
     cosmic.enable = true;
   };
+  programs.cosmic-nightlight.enable = true;
 
   # mount nfs
   fileSystems = {
