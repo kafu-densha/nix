@@ -4,7 +4,6 @@
 
 {
   # Setup TPM auto unlock
-  boot.initrd.systemd.enable = true;
   boot.initrd.luks.devices."crypted" = {
     crypttabExtraOpts = [
       "tpm2-device=auto"
