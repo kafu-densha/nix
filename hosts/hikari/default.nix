@@ -63,11 +63,5 @@
 
   services.fail2ban.enable = lib.mkForce false;
 
-  # battery saving
-  boot.kernel.sysctl = {
-    "kernel.nmi_watchdog" = 0;
-    "vm.dirty_writeback_centisecs" = 1500;
-  };
-
   system.stateVersion = "26.11";
 }
