@@ -91,7 +91,7 @@ jobs:
             echo "### Host: \`$host\`" >> pr-body.md
             echo "\`\`\`" >> pr-body.md
             
-            nix run nixpkgs#dix $OLD_DRV $NEW_DRV >> pr-body.md
+            nix run nixpkgs#dix diff $OLD_DRV $NEW_DRV >> pr-body.md
             
             echo "\`\`\`" >> pr-body.md
           done
