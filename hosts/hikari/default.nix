@@ -11,7 +11,7 @@
 
   hardware.asahi = {
     enable = true;
-    peripheralFirmwareDirectory = ./firmware;
+    peripheralFirmwareDirectory = null; # use firmware from /boot/vendorfw
     avd = {
       enable = true;
       vaapi-support = true;
