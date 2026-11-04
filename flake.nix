@@ -78,6 +78,10 @@
       url = "github:cosmic-nightlight/cosmic-nightlight/nightly";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    steam-asahi = {
+      url = "github:thatwhichisdev/steam-asahi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -98,6 +102,7 @@
       niks3,
       nixos-apple-silicon,
       cosmic-nightlight,
+      steam-asahi,
       ...
     }@inputs:
     let
@@ -185,6 +190,7 @@
           extraModules = [
             nixos-apple-silicon.nixosModules.apple-silicon-support
             cosmic-nightlight.nixosModules.default
+            steam-asahi.nixosModules.default
           ];
         };
       };

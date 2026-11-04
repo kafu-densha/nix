@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   ...
 }:
@@ -67,6 +68,16 @@
   };
 
   services.fail2ban.enable = lib.mkForce false;
+
+  programs.steam-asahi = {
+    enable = true;
+    users = [ "elenah" ];
+  };
+  nixpkgs.config = {
+    problems.handlers = {
+      "gtk+".broken = "warn";
+    };
+  };
 
   system.stateVersion = "26.11";
 }

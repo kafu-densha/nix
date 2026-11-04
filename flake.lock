@@ -676,6 +676,7 @@
         "nixos-apple-silicon": "nixos-apple-silicon",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
+        "steam-asahi": "steam-asahi",
         "systems": "systems_2",
         "tsexit": "tsexit",
         "wallpaper": "wallpaper",
@@ -721,6 +722,26 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "steam-asahi": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790759153,
+        "narHash": "sha256-LSsB0IhBl6xVED54edRvAl4xCD7HL0pRM9gwgqlsaT0=",
+        "owner": "thatwhichisdev",
+        "repo": "steam-asahi",
+        "rev": "aff7bddb7dcdfcf8a8a8bc51ae59815f6e871c41",
+        "type": "github"
+      },
+      "original": {
+        "owner": "thatwhichisdev",
+        "repo": "steam-asahi",
         "type": "github"
       }
     },
