@@ -90,6 +90,7 @@ in
       prismlauncher
       wl-clipboard
       yubioath-flutter
+      qgis
 
       # libreoffice
       libreoffice
