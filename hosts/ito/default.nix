@@ -91,6 +91,14 @@
     '')
   ];
 
+  # fix lutris gtk+ eval error
+  # FIXME: remove when nixpkgs fix is merged
+  nixpkgs.config = {
+    problems.handlers = {
+      "gtk+".broken = "warn";
+    };
+  };
+
   # OBS
   programs.obs-studio = {
     enable = true;
