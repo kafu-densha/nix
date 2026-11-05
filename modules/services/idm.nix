@@ -50,6 +50,8 @@ in
 
           tls_key = "${certDir}/key.pem";
           tls_chain = "${certDir}/fullchain.pem";
+
+          online_backup.versions = 7; # keep 7 daily backups
         };
       };
       provision = {
