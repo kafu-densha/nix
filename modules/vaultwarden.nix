@@ -21,7 +21,7 @@ in
         owner = "vaultwarden";
         group = "vaultwarden";
         mode = "600";
-        rekeyFile = ../../secrets/master-keyed/vaultwarden-env-file.age;
+        rekeyFile = ../secrets/master-keyed/vaultwarden-env-file.age;
       };
 
       services.vaultwarden = {
@@ -81,7 +81,7 @@ in
           group = "vaultwarden";
           mode = "600";
           generator.script = "base64";
-          rekeyFile = ../../secrets/master-keyed/vaultwarden-backup-password.age;
+          rekeyFile = ../secrets/master-keyed/vaultwarden-backup-password.age;
         };
 
         age.secrets.hetzner-ssh-key = {
@@ -89,7 +89,7 @@ in
           group = "vaultwarden";
           mode = "600";
           generator.script = "ssh-ed25519";
-          rekeyFile = ../../secrets/master-keyed/hetzner-ssh-key.age;
+          rekeyFile = ../secrets/master-keyed/hetzner-ssh-key.age;
         };
 
         services.restic.backups = {

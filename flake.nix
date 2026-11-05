@@ -125,13 +125,6 @@
       allModules = (
         with nixpkgs.lib; filter (hasSuffix ".nix") (filesystem.listFilesRecursive ./modules)
       );
-      servicesModules = (
-        with nixpkgs.lib; filter (hasSuffix ".nix") (filesystem.listFilesRecursive ./modules/services)
-      );
-      commonModules = (nixpkgs.lib.subtractLists servicesModules allModules) ++ [
-        ./profiles/base.nix
-        ./profiles/essential.nix
-      ];
 
       hmOptions = hmConfig: {
         home-manager.useGlobalPkgs = true;
@@ -158,10 +151,11 @@
               ;
           };
           modules =
-            commonModules
-            ++ servicesModules
+            allModules
             ++ [
+              ./profiles/base.nix
               ./profiles/system.nix
+              ./profiles/essential.nix
               ./hosts/${hostname}/default.nix
               agenix.nixosModules.default
               agenix-rekey.nixosModules.default
@@ -202,7 +196,11 @@
 
       darwinConfigurations.hikari = nix-darwin.lib.darwinSystem {
         specialArgs = { inherit inputs self; };
-        modules = commonModules ++ [
+        modules = [
+          ./profiles/essential.nix
+          ./profiles/base.nix
+          ./modules/secrets.nix
+          ./modules/no-gui.nix
           ./hosts/hikari-darwin/default.nix
           agenix.darwinModules.default
           agenix-rekey.darwinModules.default
