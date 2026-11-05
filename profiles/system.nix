@@ -153,4 +153,6 @@
   stats.enable = lib.mkDefault true;
 
   podman.enable = lib.mkDefault true;
+
+  programs.nix-ld.enable = true;
 }
