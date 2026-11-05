@@ -1,6 +1,4 @@
-{
-  ...
-}:
+_:
 
 {
   # Setup TPM auto unlock

@@ -1,6 +1,4 @@
-{
-  ...
-}:
+_:
 
 let
   passwordFile = "/run/agenix/macbook-restic-backup-password"; # secret defined in ./default.nix

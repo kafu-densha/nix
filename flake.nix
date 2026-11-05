@@ -29,8 +29,8 @@
       inputs.stable.follows = "nixpkgs";
     };
     systems.url = "github:nix-systems/default";
-    git-hooks = {
-      url = "github:cachix/git-hooks.nix";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     disko = {
@@ -88,6 +88,7 @@
     {
       self,
       systems,
+      treefmt-nix,
       nixpkgs,
       agenix,
       agenix-rekey,
@@ -122,9 +123,7 @@
 
       forEachSystem = nixpkgs.lib.genAttrs (nixpkgs.lib.remove "x86_64-darwin" (import systems));
 
-      allModules = (
-        with nixpkgs.lib; filter (hasSuffix ".nix") (filesystem.listFilesRecursive ./modules)
-      );
+      allModules = with nixpkgs.lib; filter (hasSuffix ".nix") (filesystem.listFilesRecursive ./modules);
 
       hmOptions = hmConfig: {
         home-manager.useGlobalPkgs = true;
@@ -188,6 +187,26 @@
           ];
         };
       };
+
+      treefmtConfig = forEachSystem (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        treefmt-nix.lib.evalModule pkgs {
+          projectRootFile = "flake.nix";
+
+          programs.nixfmt.enable = true;
+          programs.deadnix.enable = true;
+          programs.statix.enable = true;
+          programs.prettier = {
+            enable = true;
+            settings = {
+              tabWidth = 2;
+            };
+          };
+        }
+      );
     in
     {
       nixosConfigurations = builtins.mapAttrs (
@@ -236,9 +255,9 @@
         {
           meta = {
             nixpkgs = import nixpkgs { system = "x86_64-linux"; };
-            nodeNixpkgs = builtins.mapAttrs (name: value: value.pkgs) self.nixosConfigurations;
+            nodeNixpkgs = builtins.mapAttrs (_name: value: value.pkgs) self.nixosConfigurations;
             nodeSpecialArgs = builtins.mapAttrs (
-              name: value: value._module.specialArgs
+              _name: value: value._module.specialArgs
             ) self.nixosConfigurations;
           };
         }
@@ -254,41 +273,18 @@
 
       agenix-rekey = agenix-rekey.configure {
         userFlake = self;
-        nixosConfigurations = self.nixosConfigurations;
-        darwinConfigurations = self.darwinConfigurations;
+        inherit (self) nixosConfigurations;
+        inherit (self) darwinConfigurations;
       };
 
-      formatter = forEachSystem (
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-          config = self.checks.${system}.pre-commit-check.config;
-          inherit (config) package configFile;
-          script = ''
-            ${pkgs.lib.getExe package} run --all-files --config ${configFile}
-          '';
-        in
-        pkgs.writeShellScriptBin "pre-commit-run" script
-      );
+      formatter = forEachSystem (system: treefmtConfig.${system}.config.build.wrapper);
       checks = forEachSystem (system: {
-        pre-commit-check = inputs.git-hooks.lib.${system}.run {
-          src = ./.;
-          hooks = {
-            nixfmt.enable = true;
-          };
-        };
+        formatting = treefmtConfig.${system}.config.build.check self;
       });
       devShells = forEachSystem (
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system}.extend agenix-rekey.overlays.default;
-          pre-commit-check-shell = inputs.git-hooks.lib.${system}.run {
-            src = pkgs.runCommand "empty-dir" { } "mkdir $out";
-            hooks = {
-              nixfmt.enable = true;
-            };
-          };
-          inherit (pre-commit-check-shell) shellHook enabledPackages;
         in
         {
           default = pkgs.mkShell {
@@ -296,13 +292,20 @@
               let
                 selectedYubikey = "primary";
               in
-              (
-                shellHook
-                + ''
-                  export AGENIX_REKEY_PRIMARY_IDENTITY="$(grep -Poe "^#    Recipient(?: \(pq safe\))?: \K.*$" secrets/master-identities/yubikey-${selectedYubikey}.pub | head -1)"
-                ''
-              );
-            buildInputs = enabledPackages;
+              ''
+                # formatting hook
+                HOOKS_DIR=$(git rev-parse --git-path hooks)
+                mkdir -p $HOOKS_DIR
+                cat << 'EOF' > $HOOKS_DIR/pre-commit
+                #!/usr/bin/env bash
+                exec treefmt --fail-on-change
+                EOF
+                chmod +x $HOOKS_DIR/pre-commit
+
+                # set agenix rekey default yubikey
+                export AGENIX_REKEY_PRIMARY_IDENTITY="$(grep -Poe "^#    Recipient(?: \(pq safe\))?: \K.*$" secrets/master-identities/yubikey-${selectedYubikey}.pub | head -1)"
+              '';
+            nativeBuildInputs = [ treefmtConfig.${system}.config.build.wrapper ];
             packages = [
               pkgs.agenix-rekey
               pkgs.age-plugin-yubikey
@@ -310,7 +313,6 @@
             ];
           };
           deploy = pkgs.mkShell {
-            buildInputs = enabledPackages;
             packages = [ colmena.packages.${system}.colmena ];
           };
         }

@@ -15,6 +15,24 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  Atelier:
-    uses: stepbrobd/atelier/.github/workflows/discover.yaml@master
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
 
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            accept-flake-config = true
+
+      - uses: Mic92/niks3-action@v1
+        with:
+          server-url: ${{ vars.NIKS3_SERVER }}
+
+      - name: Check Flake
+        run: nix flake check --all-systems
+  atelier:
+    uses: stepbrobd/atelier/.github/workflows/discover.yaml@master
+    needs: check

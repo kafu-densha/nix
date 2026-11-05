@@ -23,7 +23,7 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
-      
+
       - name: Setup Git
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
@@ -107,4 +107,3 @@ jobs:
             --title "nix flake update" \
             --body-file pr-body.md || \
           gh pr edit nix-flake-update --body-file pr-body.md
-

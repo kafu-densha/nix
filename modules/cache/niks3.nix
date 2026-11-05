@@ -100,8 +100,8 @@ in
           enable = true;
           url = cfg.publicURL;
           port = dbPort;
-          niks3-s3-access-key = cfg.niks3-s3-access-key;
-          niks3-s3-secret-key = cfg.niks3-s3-secret-key;
+          inherit (cfg) niks3-s3-access-key;
+          inherit (cfg) niks3-s3-secret-key;
         };
 
         systemd.services.niks3 = {

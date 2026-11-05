@@ -9,13 +9,11 @@
 let
   cfg = config.graphical;
 
-  paperwm-patched = (
-    pkgs.gnomeExtensions.paperwm.overrideAttrs (prevAttrs: {
-      patches = (prevAttrs.patches or [ ]) ++ [
-        ./paperwm-scroll-windows.patch
-      ];
-    })
-  );
+  paperwm-patched = pkgs.gnomeExtensions.paperwm.overrideAttrs (prevAttrs: {
+    patches = (prevAttrs.patches or [ ]) ++ [
+      ./paperwm-scroll-windows.patch
+    ];
+  });
 
   text-scaling-factor = lib.gvariant.mkDouble (
     if (config.networking.hostName == "hikari") then 0.90 else 1.00
