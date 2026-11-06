@@ -3,7 +3,7 @@
   "formatter": {
     "external": {
       "command": "treefmt",
-      "arguments": ["--tree-root", ".", "--stdin", "{buffer_path}"]
+      "arguments": ["--stdin", "{buffer_path}"]
     }
   }
 }
