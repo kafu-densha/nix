@@ -14,6 +14,7 @@
     peripheralFirmwareDirectory = null; # use firmware from /boot/vendorfw
     avd = {
       enable = true;
+      codecs = [ "all" ];
       vaapi-support = true;
     };
   };
