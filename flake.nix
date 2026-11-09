@@ -54,7 +54,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     tsexit = {
-      url = "github:bnh440/tsexit";
+      url = "github:kafu-densha/tsexit";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {

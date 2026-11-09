@@ -825,13 +825,13 @@
       "locked": {
         "lastModified": 1781917389,
         "narHash": "sha256-mIxyc2nF/sKcMC7ZAdOOjkdvZmbFS9SnJmYTadYgiZ4=",
-        "owner": "bnh440",
+        "owner": "kafu-densha",
         "repo": "tsexit",
         "rev": "4e8c98ba6839a82e496d7bfb11e1a9d924cd6846",
         "type": "github"
       },
       "original": {
-        "owner": "bnh440",
+        "owner": "kafu-densha",
         "repo": "tsexit",
         "type": "github"
       }
