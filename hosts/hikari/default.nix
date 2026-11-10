@@ -24,7 +24,8 @@
 
   boot.kernelParams = [ "appledrm.show_notch=1" ]; # show notch
 
-  boot.supportedFilesystems = [ "zfs" ]; # enable zfs support
+  # FIXME: disable zfs until supported on kernel 7.3
+  # boot.supportedFilesystems = [ "zfs" ]; # enable zfs support
 
   zramSwap.enable = true;
 
