@@ -91,12 +91,19 @@ in
       wl-clipboard
       yubioath-flutter
       qgis
+      (iloader.overrideAttrs (oldAttrs: {
+        # FIXME: remove when NixOS/nixpkgs#585227 reaches unstable
+        buildInputs = oldAttrs.buildInputs ++ [ pkgs.aws-lc ];
+      }))
 
       # libreoffice
       libreoffice
       hunspell
       hunspellDicts.en-us
     ];
+
+    # ios device connection
+    services.usbmuxd.enable = true;
 
     # Fonts
     fonts = {
