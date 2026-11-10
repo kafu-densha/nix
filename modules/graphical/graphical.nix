@@ -95,6 +95,7 @@ in
         # FIXME: remove when NixOS/nixpkgs#585227 reaches unstable
         buildInputs = oldAttrs.buildInputs ++ [ pkgs.aws-lc ];
       }))
+      calibre
 
       # libreoffice
       libreoffice
