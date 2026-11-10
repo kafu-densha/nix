@@ -68,8 +68,8 @@
     };
     nixos-apple-silicon = {
       # FIXME: fix kernel build problems, remove when merged:
-      # https://github.com/nix-community/nixos-apple-silicon/pull/582
-      url = "github:nix-community/nixos-apple-silicon/08054768e99a64fcdfd4443d868c0895f3142f70";
+      # https://github.com/nix-community/nixos-apple-silicon/pull/584
+      url = "github:nix-community/nixos-apple-silicon/9582dae20448bc8ef4302b02dd8c386814884be2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     wallpaper = {
