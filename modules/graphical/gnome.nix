@@ -9,11 +9,36 @@
 let
   cfg = config.graphical;
 
-  paperwm-patched = pkgs.gnomeExtensions.paperwm.overrideAttrs (prevAttrs: {
-    patches = (prevAttrs.patches or [ ]) ++ [
-      ./paperwm-scroll-windows.patch
-    ];
-  });
+  paperwm-patched = pkgs.gnomeExtensions.paperwm.overrideAttrs (
+    finalAttrs: prevAttrs: {
+      patches = (prevAttrs.patches or [ ]) ++ [
+        ./paperwm-scroll-windows.patch
+      ];
+
+      # FIXME: remove when extension is updated to gnome 51
+      version = "51.0.0";
+      src = pkgs.fetchFromGitHub {
+        owner = "paperwm";
+        repo = "PaperWM";
+        rev = "v${finalAttrs.version}";
+        hash = "sha256-m01roFOC/iGHWlKer6X/Qn+MWDl6NJ1YG0KPz3IiqH4=";
+      };
+    }
+  );
+
+  # FIXME: remove when extension is updated to gnome 51
+  ddcutil-extension-patched = pkgs.gnomeExtensions.brightness-control-using-ddcutil.overrideAttrs (
+    _finalAttrs: _prevAttrs: {
+      version = "51.0.0";
+      src = pkgs.fetchFromGitHub {
+        owner = "daitj";
+        repo = "gnome-display-brightness-ddcutil";
+        rev = "691553b5ade73ac3b2f8e15eed26ee03f574b349";
+        hash = "sha256-ZtK206qJVmLp3OKc3zWFgbaKEKyToFqkOgFlax/yG/8=";
+      };
+      sourceRoot = "source/display-brightness-ddcutil@themightydeity.github.com";
+    }
+  );
 
   text-scaling-factor = lib.gvariant.mkDouble (
     if (config.networking.hostName == "hikari") then 0.90 else 1.00
@@ -67,7 +92,7 @@ in
                 copyous.extensionUuid
               ]
               ++ (lib.optionals (config.networking.hostName == "ito") [
-                brightness-control-using-ddcutil.extensionUuid
+                ddcutil-extension-patched.extensionUuid
               ])
               ++ (lib.optionals (config.networking.hostName == "hikari") [
                 just-perfection.extensionUuid
@@ -178,7 +203,7 @@ in
       # gnome
       paperwm-patched
       gnomeExtensions.blur-my-shell
-      gnomeExtensions.brightness-control-using-ddcutil
+      ddcutil-extension-patched
       ddcutil
       gnomeExtensions.copyous
       gnomeExtensions.just-perfection
