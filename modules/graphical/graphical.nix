@@ -96,6 +96,7 @@ in
         buildInputs = oldAttrs.buildInputs ++ [ pkgs.aws-lc ];
       }))
       calibre
+      aseprite
 
       # libreoffice
       libreoffice
