@@ -65,6 +65,7 @@ in
         virtualHosts = {
           "default" = {
             default = true;
+            rejectSSL = true; # required for default vhost to apply to ssl connections
             locations."/" = {
               return = "404";
             };
