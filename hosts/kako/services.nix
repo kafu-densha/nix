@@ -33,6 +33,7 @@
     enable = true;
     db = "remote";
     publicURL = "niks3.${config.web.rootDomain}";
+    extraRepos = [ "kafu-densha/elena.sh" ];
     niks3-auth-token = config.age.secrets.niks3-auth-token.path;
     niks3-signing-key = config.age.secrets.niks3-signing-key.path;
     niks3-s3-access-key = config.age.secrets.niks3-s3-access-key.path;

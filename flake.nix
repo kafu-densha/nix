@@ -82,6 +82,11 @@
       url = "github:thatwhichisdev/steam-asahi";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    "elena.sh" = {
+      url = "github:kafu-densha/elena.sh";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+    };
   };
 
   outputs =

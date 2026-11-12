@@ -26,6 +26,10 @@ in
       type = lib.types.str;
       default = "cache.${rootDomain}";
     };
+    extraRepos = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+    };
 
     niks3-auth-token = lib.mkOption {
       type = lib.types.str;
@@ -62,7 +66,7 @@ in
           issuer = "https://token.actions.githubusercontent.com";
           audience = "https://${cfg.publicURL}";
           boundClaims = {
-            repository = [ githubRepo ];
+            repository = [ githubRepo ] ++ cfg.extraRepos;
           };
         };
 
