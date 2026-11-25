@@ -55,12 +55,13 @@
   # mount nfs
   fileSystems = {
     "/data" = {
-      device = "ito:/export";
+      device = "ito:/";
       fsType = "nfs";
       options = [
         "nfsvers=4.2"
         "x-systemd.automount"
         "x-systemd.idle-timeout=60" # unmount after 60 seconds of inactivity
+        "x-systemd.mount-timeout=10" # fail after 10 seconds
         "noatime"
         "noauto"
         "_netdev"
