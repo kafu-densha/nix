@@ -65,9 +65,14 @@
         "noatime"
         "noauto"
         "_netdev"
+        "fsc=ito-data" # enable caching
+        "actimeo=120"
+        "nocto"
+        "lookupcache=all"
       ];
     };
   };
+  services.cachefilesd.enable = true;
 
   services.fail2ban.enable = lib.mkForce false;
 
