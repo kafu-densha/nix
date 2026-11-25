@@ -88,7 +88,11 @@ in
       transmission = {
         enable = true;
         group = "media";
-        settings.umask = "002";
+        settings = {
+          umask = "002";
+          seed-ratio-limit = 0;
+          seed-ratio-limited = true;
+        };
       };
     };
 
