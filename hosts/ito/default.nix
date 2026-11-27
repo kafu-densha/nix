@@ -69,8 +69,8 @@
   # Gaming
   programs.steam = {
     enable = true;
-    extraPackages = with pkgs; [
-      kdePackages.breeze # fix cursor theme
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
     ];
   };
   environment.systemPackages = with pkgs; [
